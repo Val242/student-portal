@@ -14,7 +14,7 @@ const TabsLayout = () => {
             name='schedule'//here is the name of the component or file who's content is going to be displayed in the screen
             options={{
                 tabBarIcon: () => (
-                    <Ionicons name='calendar'/>      
+                    <Ionicons name='calendar-outline' size={30}/>      
                 )
             }}
         
@@ -24,7 +24,7 @@ const TabsLayout = () => {
             name='tasks'//here is the name of the component or file who's content is going to be displayed in the screen
             options={{
                 tabBarIcon: () => (
-                    <Ionicons name='calendar'/>      
+                    <Ionicons name='document-outline' size={30}/>      
                 )
             }}
         
@@ -34,7 +34,7 @@ const TabsLayout = () => {
             name='profile'//here is the name of the component or file who's content is going to be displayed in the screen
             options={{
                 tabBarIcon: () => (
-                    <Ionicons name='calendar'/>      
+                    <Ionicons name='person-outline' size={30}/>      
                 )
             }}
         

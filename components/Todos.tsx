@@ -40,11 +40,11 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginBottom: 10,
         paddingHorizontal: 15,
-        paddingTop: 20,
-        paddingBottom: 20
+        paddingTop: 25,
+        paddingBottom: 25
     },
     title: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: "700",
     },
     date:{

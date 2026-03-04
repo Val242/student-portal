@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const createTasksStyles = () => {
+export const createProfilesStyles = () => {
 
   const styles = StyleSheet.create({
     container: {
@@ -28,8 +28,9 @@ export const createTasksStyles = () => {
     },
     title: {
       fontSize: 30,
-      fontWeight: "700",
-      letterSpacing: -1
+      fontWeight: "400",
+      letterSpacing: -1,
+      color: "white"
     },
     scrollView: {
       flex: 1,
@@ -39,7 +40,8 @@ export const createTasksStyles = () => {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingTop: 10
+        paddingTop: 10,
+        backgroundColor: '#a28ef9'
     },
     InnerTopNav:{
         display: 'flex',
@@ -50,8 +52,9 @@ export const createTasksStyles = () => {
 
     },
     page: {
-        marginHorizontal: 10,
-        backgroundColor: '#eceef0'
+        paddingHorizontal: 10,
+        backgroundColor: '#a28ef9',
+        
     },
     buttonRow: {
         display: 'flex',
@@ -65,14 +68,21 @@ export const createTasksStyles = () => {
     filters:{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         marginTop: 15,
-        marginBottom: 10
+        marginBottom: 10,
+        gap: 5
     },
     filter:{
         display: 'flex',
         flexDirection: 'row' ,
         gap: 10
+    },
+    profileLayout:{
+        backgroundColor: "white",
+        position: 'relative',
+        borderRadius: 20,
+        inset: 0,
+        
     }
 
   });

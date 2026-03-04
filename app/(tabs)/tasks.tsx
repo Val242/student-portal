@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Todos from '@/components/Todos';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
@@ -18,16 +18,39 @@ const tasks = () => {
               date: 'May 12, 2025',
               comments: 12
           },
-              {
+          {
               status: 'To do',
               title: 'Create a comic strip with a story',
               course: 'Social studies',
               date: 'May 12, 2025',
               comments: 2
-          }
+          },
+          {
+              status: 'To do',
+              title: 'Prepare for the math test',
+              course: 'Mathematics',
+              date: 'May 12, 2025',
+              comments: 10
+          },
+          {
+              status: 'Done',
+              title: 'Writing feedback systems exam',
+              course: 'Feedback Systems',
+              date: 'May 12, 2025',
+              comments: 10
+          },
+          {
+              status: 'To do',
+              title: 'Writing feedback systems exam',
+              course: 'Feedback Systems',
+              date: 'May 12, 2025',
+              comments: 10
+          },
       ]
   return (
+   
     <SafeAreaView style ={tasksStyles.page} >
+       <ScrollView  showsVerticalScrollIndicator={false}>
       <View style ={tasksStyles.page}>
           <View style = {tasksStyles.topNav}>
           <Text style = {tasksStyles.title}>My tasks</Text>
@@ -72,7 +95,9 @@ const tasks = () => {
             ))}
 
       </View>
+      </ScrollView>
     </SafeAreaView>
+   
   )
 }
 

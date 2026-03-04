@@ -8,6 +8,11 @@ type ButtonProps = {
   style?: ViewStyle;
   textStyle: TextStyle
 };
+
+type ProfileButton = {
+    section: string;
+}
+
 const tasksStyles = createTasksStyles();
 
 export default function CustomButton({ 
@@ -18,4 +23,18 @@ export default function CustomButton({
   return <Pressable  >
    <Text>{title}</Text> 
     </Pressable>;
+}
+
+export function ProfileButton({section}:ProfileButton){
+    return <Pressable style={{}} >
+        <Text style={
+            {
+                textAlign: 'center',
+                backgroundColor: '#eceef08d',
+                marginBottom: 5,
+                borderRadius:20,
+                boxSizing: '15'
+                }
+                }> {section}</Text>
+    </Pressable>
 }
