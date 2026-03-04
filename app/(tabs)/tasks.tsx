@@ -56,7 +56,7 @@ const tasks = () => {
           <Text style = {tasksStyles.title}>My tasks</Text>
               <View style = {tasksStyles.InnerTopNav}>
                 <Ionicons name='search' size={30}/>
-                <Ionicons name='notifications' size={30}/>
+                <Ionicons name='notifications-outline' size={30}/>
               </View>
           </View>
            

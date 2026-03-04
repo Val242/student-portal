@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 
-export const createProfilesStyles = () => {
+export const createScheduleStyles = () => {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
+        marginHorizontal: 10,
+        backgroundColor: '#eceef0'
     },
     safeArea: {
       flex: 1,
@@ -28,9 +29,8 @@ export const createProfilesStyles = () => {
     },
     title: {
       fontSize: 30,
-      fontWeight: "400",
+      fontWeight: "700",
       letterSpacing: -1,
-      color: "white"
     },
     scrollView: {
       flex: 1,
@@ -38,14 +38,12 @@ export const createProfilesStyles = () => {
 
     topNav:{
         display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingTop: 10,
-        backgroundColor: '#a28ef9'
+      
     },
     InnerTopNav:{
         display: 'flex',
         flexDirection: 'row' ,
+        justifyContent: 'space-between',
         gap: 10
     },
     InnerTopNavIcon:{

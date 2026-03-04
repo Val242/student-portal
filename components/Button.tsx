@@ -26,14 +26,16 @@ export default function CustomButton({
 }
 
 export function ProfileButton({section}:ProfileButton){
-    return <Pressable style={{}} >
+    return <Pressable style={{ width: '50%' }}  >
         <Text style={
             {
                 textAlign: 'center',
-                backgroundColor: '#eceef08d',
-                marginBottom: 5,
+                backgroundColor: '#eaedf0',
+                padding: 10,
                 borderRadius:20,
-                boxSizing: '15'
+                fontSize: 20,
+                fontWeight: "bold",
+                
                 }
                 }> {section}</Text>
     </Pressable>
