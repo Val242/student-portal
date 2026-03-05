@@ -93,7 +93,7 @@ const Schedule = () => {
       <View style = {scheduleStyles.topNav}>
           <View style = {scheduleStyles.InnerTopNav}>
           <Text style ={scheduleStyles.title}>Schedule </Text>
-          <Ionicons name='calendar-outline' size={30}/>  
+          <Ionicons name='calendar-outline' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
           </View>
     <ScrollView
         horizontal

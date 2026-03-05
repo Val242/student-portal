@@ -8,6 +8,7 @@ type TodoProps = {
     course: string;
     date: string;
     comments: number;
+    
 
 }
 

@@ -44,8 +44,8 @@ const profile = () => {
          <View style = {profileStyles.topNav}>
            <Text style = {profileStyles.title}>My profile</Text>
             <View style = {profileStyles.InnerTopNav}>
-                <MaterialCommunityIcons name="lead-pencil" size={30} color="black" />
-                <Ionicons name='notifications-outline' size={30}/>
+                <MaterialCommunityIcons name="lead-pencil" size={30} color="black" style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
+               <Ionicons name='notifications-outline' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
               </View>
           </View>
     </View>
