@@ -7,10 +7,19 @@ import { ScrollView, Text, TextStyle, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Variant =  "allTask" | "toDO" | "inProgress" | "done";
+type StateVariant =   "toDO" | "inProgress" | "done";
 interface ButtonState {
   status: Variant;
   title: string;
   textStyle: TextStyle;
+}
+interface StatusState{
+  statusState:StateVariant;
+  title: string;
+  course: string;
+  date: string;
+  comments: number;
+  status: string;
 }
 
 const tasksStyles = createTasksStyles();
@@ -19,48 +28,54 @@ const tasks = () => {
 
 
 
-      const initialTodo = [
+      const initialTodo: StatusState[] = [
           {
               status: 'In progress',
               title: 'Read poem & answer questions',
               course: 'English Literature',
               date: 'May 12, 2025',
-              comments: 12
+              comments: 12,
+              statusState: "inProgress"
           },
             {
               status: 'In progress',
               title: 'Read poem & answer questions',
               course: 'English Literature',
               date: 'May 12, 2025',
-              comments: 12
+              comments: 12,
+              statusState: "inProgress"
           },
           {
               status: 'To do',
               title: 'Create a comic strip with a story',
               course: 'Social studies',
               date: 'May 12, 2025',
-              comments: 2
+              comments: 2,
+              statusState: "toDO"
           },
           {
               status: 'To do',
               title: 'Prepare for the math test',
               course: 'Mathematics',
               date: 'May 12, 2025',
-              comments: 10
+              comments: 10,
+              statusState: "toDO"
           },
           {
               status: 'Done',
               title: 'Writing feedback systems exam',
               course: 'Feedback Systems',
               date: 'May 12, 2025',
-              comments: 10
+              comments: 10,
+              statusState:"done"
           },
           {
               status: 'To do',
               title: 'Writing feedback systems exam',
               course: 'Feedback Systems',
               date: 'May 12, 2025',
-              comments: 10
+              comments: 10,
+              statusState: "done"
           },
       ]
       const [tasks, setTasks] = useState(initialTodo)
@@ -159,8 +174,9 @@ const tasks = () => {
           {
             tasks.map((todo, filerType)=>(
                 filterType  &&(
+                 
                 <Todos 
-                  status={todo.status}
+                  status={todo.statusState}
                   title={todo.title}
                   course={todo.course}
                   date={todo.date}
@@ -170,7 +186,7 @@ const tasks = () => {
                 )
             ))}
 
-        
+         
 
       </View>
       </ScrollView>

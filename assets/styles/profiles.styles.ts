@@ -28,7 +28,7 @@ export const createProfilesStyles = () => {
     },
     title: {
       fontSize: 30,
-      fontWeight: "400",
+      fontWeight: "700",
       letterSpacing: -1,
       color: "white"
     },
@@ -82,8 +82,9 @@ export const createProfilesStyles = () => {
     },
     profileLayout:{
         backgroundColor: "white",
-        borderRadius: 25,
+        borderTopLeftRadius: 45,
         paddingHorizontal: 10,
+        borderTopRightRadius:45
         
     }
 

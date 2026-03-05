@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons"
+import { FontAwesome5, Ionicons, Octicons } from "@expo/vector-icons"
 import { Tabs } from 'expo-router'
 import React from 'react'
 
@@ -14,7 +14,7 @@ const TabsLayout = () => {
             name='schedule'//here is the name of the component or file who's content is going to be displayed in the screen
             options={{
                 tabBarIcon: () => (
-                    <Ionicons name='calendar-outline' size={30}/>      
+                    <FontAwesome5 name='calendar' size={30}/>      
                 )
             }}
         
@@ -34,7 +34,7 @@ const TabsLayout = () => {
             name='profile'//here is the name of the component or file who's content is going to be displayed in the screen
             options={{
                 tabBarIcon: () => (
-                    <Ionicons name='person-outline' size={30}/>      
+                    <Octicons name='person' size={30}/>      
                 )
             }}
         

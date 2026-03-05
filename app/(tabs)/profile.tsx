@@ -11,24 +11,40 @@ const profile = () => {
 
   const activities = [
     {
-        title: 'Math Olympiad',
+        title: 'Math Olympiad for all',
         date: 'May 30, 2025',
         description: 'Conducted for classes 8-9',
+        icon: <MaterialCommunityIcons name="ruler" size={24} style={{backgroundColor:"#a4f5a6", borderRadius: 20, padding:10}} />
     },
       {
-        title: 'Art Exhibition',
-        date: 'May 30, 2025',
+        title: 'Art Exhibition for all',
+        date: 'June 23, 2025',
         description: 'Exhibition of creative works',
+      icon: <MaterialCommunityIcons name="television" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
     },
       {
-        title: 'Science and teachnology',
+        title: 'Science and technology',
         date: 'May 30, 2025',
         description: 'Conducted for classes 9-10',
+        icon: <MaterialCommunityIcons name="nature" size={24} style={{backgroundColor:"#ffd89d", borderRadius: 20, padding:10}}/>
     },
        {
         title: 'Law and Political Science',
         date: 'May 31, 2025',
         description: 'Conducted for classes 9-10',
+        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
+    },
+      {
+        title: 'Law and Political Science',
+        date: 'May 31, 2025',
+        description: 'Conducted for classes 9-10',
+        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
+    },
+      {
+        title: 'Law and Political Science',
+        date: 'May 31, 2025',
+        description: 'Conducted for classes 9-10',
+        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
     },
   ]
 
@@ -36,8 +52,8 @@ const profile = () => {
 
   return (
   
-    <View >
-      <ScrollView  showsVerticalScrollIndicator={false}>
+   
+      <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9"}}>
       <SafeAreaView style = {profileStyles.page}>
         
       <View style = {profileStyles.page}>
@@ -52,7 +68,7 @@ const profile = () => {
   </SafeAreaView>
           <View style= {profileStyles.profileLayout}>
 
-              <View style={{display:'flex', flexDirection: 'row' }}>
+              <View style={{display:'flex', flexDirection: 'row', paddingTop: 10 }}>
                   <Image
                   source={student}
                   style={{ width: 120, height: 120, resizeMode: "contain", borderRadius:25 }}
@@ -69,23 +85,24 @@ const profile = () => {
               </View>
 
                 <View style={{marginVertical:15}}>
-                      <Text style = {{fontSize: 30,fontWeight: "400",letterSpacing: -1,}}>
+                      <Text style = {{fontSize: 20,fontWeight: "600",letterSpacing: -1,}}>
                         About
                         </Text>
-                      <Text style = {{fontSize: 20}}>
+                      <Text style = {{fontSize: 15}}>
                         I am interested in math and biology. I like to solve
                         complex problems and participate in school olympiads
                       </Text>
                 </View>
 
        <View style={{marginVertical:20}}>
-          <Text style = {{  fontSize: 30,fontWeight: "400",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
+          <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
           {
             activities.map((activity, index)=>(
                 <Activities
                   title={activity.title}
                   date={activity.date}
                   description={activity.description}
+                  icon={activity.icon}
                   key={index}
                 />
             ))
@@ -95,7 +112,7 @@ const profile = () => {
           </View>
 </ScrollView>
      
-    </View>
+    
   )
 }
 

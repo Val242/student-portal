@@ -1,7 +1,7 @@
 import { createScheduleStyles } from '@/assets/styles/schedules.styles'
 import DateComponent from '@/components/DateComponent'
 import ScheduleComponent from '@/components/Schedule'
-import { Ionicons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -9,11 +9,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Schedule = () => {
 
   const [isActive, setIsActive] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
 
-  const handlePress  = ()=>{
-    setIsActive(prev =>!prev)
-    console.log(isActive)
-  } 
+const handleDatePress = (date: number) => {
+  setSelectedDate(date);
+};
 
   console.log(isActive)
 
@@ -87,13 +87,17 @@ const Schedule = () => {
 
 
   const scheduleStyles = createScheduleStyles()
+  function handlePress(): void {
+    throw new Error('Function not implemented.')
+  }
+
   return (
     <SafeAreaView style= {scheduleStyles.container}>
       <ScrollView  showsVerticalScrollIndicator={false}>
       <View style = {scheduleStyles.topNav}>
           <View style = {scheduleStyles.InnerTopNav}>
-          <Text style ={scheduleStyles.title}>Schedule </Text>
-          <Ionicons name='calendar-outline' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
+          <Text style ={scheduleStyles.title}>My Schedule </Text>
+           <FontAwesome5 name='calendar' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
           </View>
     <ScrollView
         horizontal
@@ -110,6 +114,8 @@ const Schedule = () => {
               <DateComponent 
               day={schedule.day} 
               date={schedule.date}
+              isActive={selectedDate === schedule.date}
+              onPress={() => handleDatePress(schedule.date)}
               key={index}
               />
             ))
