@@ -83,7 +83,7 @@ export const createProfilesStyles = () => {
     profileLayout:{
         backgroundColor: "white",
         borderTopLeftRadius: 45,
-        paddingHorizontal: 10,
+        paddingHorizontal: 18,
         borderTopRightRadius:45
         
     }

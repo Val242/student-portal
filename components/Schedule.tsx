@@ -8,6 +8,7 @@ type ScheduleProps={
     title: string;
     location: string;
     lecturer: string;
+    isActive: boolean;
     onPress: () => void;
 }
 
@@ -18,10 +19,14 @@ export default function ScheduleComponent(
         title,
         location,
         lecturer,
+        isActive,
         onPress
     }: ScheduleProps) {
   return (
-    <Pressable style ={styles.container} onPress={onPress}>
+    <Pressable style={[
+        styles.container,
+        isActive && { backgroundColor: "#a4f5a6" }
+      ]} onPress={onPress}>
       <View style={{ flex: 1 }}>
             <Ionicons name = 'time-outline' size={30} style={{marginBottom: 10}}/>
             <Text style={{marginBottom: 10}}>{startTime}</Text>

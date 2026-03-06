@@ -11,13 +11,13 @@ const profile = () => {
 
   const activities = [
     {
-        title: 'Math Olympiad for all',
+        title: 'Math Olympiad ',
         date: 'May 30, 2025',
         description: 'Conducted for classes 8-9',
         icon: <MaterialCommunityIcons name="ruler" size={24} style={{backgroundColor:"#a4f5a6", borderRadius: 20, padding:10}} />
     },
       {
-        title: 'Art Exhibition for all',
+        title: 'Art Exhibition ',
         date: 'June 23, 2025',
         description: 'Exhibition of creative works',
       icon: <MaterialCommunityIcons name="television" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
@@ -38,13 +38,13 @@ const profile = () => {
         title: 'Law and Political Science',
         date: 'May 31, 2025',
         description: 'Conducted for classes 9-10',
-        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
+         icon: <MaterialCommunityIcons name="ruler" size={24} style={{backgroundColor:"#a4f5a6", borderRadius: 20, padding:10}} />
     },
       {
         title: 'Law and Political Science',
         date: 'May 31, 2025',
         description: 'Conducted for classes 9-10',
-        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
+        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#ffd89d", borderRadius: 20, padding:10}} />
     },
   ]
 

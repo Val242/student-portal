@@ -8,14 +8,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Schedule = () => {
 
-  const [isActive, setIsActive] = useState(false);
+  const [isActiveTime, setIsActiveTime] = useState(false);
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string| null>('')
 
 const handleDatePress = (date: number) => {
   setSelectedDate(date);
 };
 
-  console.log(isActive)
+  // console.log(isActive)
 
   const schedules = [
     {
@@ -70,14 +71,14 @@ const handleDatePress = (date: number) => {
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '3:00 PM',
+       startTime: '5:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '3:00 PM',
+       startTime: '4:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
@@ -87,9 +88,14 @@ const handleDatePress = (date: number) => {
 
 
   const scheduleStyles = createScheduleStyles()
-  function handlePress(): void {
-    throw new Error('Function not implemented.')
-  }
+// const handleDatePress = (date: number) => {
+//   setSelectedDate(date);
+// };
+const handleSchedulePress = (startTime: string) => {
+  setSelectedTime(startTime);
+  setIsActiveTime((prev)=> !prev)
+  
+};
 
   return (
     <SafeAreaView style= {scheduleStyles.container}>
@@ -131,8 +137,9 @@ const handleDatePress = (date: number) => {
             title={item.title}
             location={item.location}
             lecturer={item.lecturer}
-            onPress={handlePress}
-            key={index}
+            onPress={()=>handleSchedulePress(item.startTime)}
+            isActive = {isActiveTime &&  selectedTime === item.startTime}
+            key={index} 
           />
         ))
       }

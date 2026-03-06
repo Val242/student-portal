@@ -69,12 +69,11 @@ export function ProfileButton({section}:ProfileButton){
         <Text style={
             {
                 textAlign: 'center',
-                backgroundColor: '#eaedf0',
+                backgroundColor: '#eceef0',
                 padding: 10,
                 borderRadius:20,
                 fontSize: 20,
-                fontWeight: "500",
-              
+                fontWeight: "500",     
                 }
                 }> {section}</Text>
     </Pressable>

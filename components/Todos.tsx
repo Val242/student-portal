@@ -1,7 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
-import ProgressSlider from './ProgressSlider';
 
 type StateVariant =   "toDO" | "inProgress" | "done";
 
@@ -56,7 +55,7 @@ const Todo = ({status, title, course, date, comments}: TodoProps) => {
                 <Text style= {styles.comments}>{comments} comments</Text> 
             </View>
         </View>
-         <ProgressSlider/>
+         {/* <ProgressSlider/> */}
     </View>
   )
 }
