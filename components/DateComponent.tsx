@@ -1,43 +1,48 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
-type DateProps={
-    day: string;
-    date: number;
-}
+type DateProps = {
+  day: string;
+  date: number;
+   isActive: boolean;
+  onPress: () => void;
+};
 
-export default function DateComponent({date, day}: DateProps) {
+export default function DateComponent({ date, day , isActive,onPress}: DateProps) {
   return (
-    <Pressable>
-      <View  style = {styles.container}>
-      <Text style = {styles.dayText}>{day}</Text>
-      <Text style = {styles.dayText}>{date}</Text>
-      </View>
+    <Pressable
+      onPress={onPress}
+      style={[
+        styles.container,
+        isActive && { backgroundColor: "#a28ef9" }
+      ]}
+    >
+      <Text style={[styles.dayText, isActive &&{color: "white"}]}>{day}</Text>
+      <Text  style={[styles.dateText, isActive &&{color: "white"}]}>{date}</Text>
     </Pressable>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    alignItems: 'center',          // center text inside card
-    // justifyContent: 'center',
-    backgroundColor: 'white',
+  container: {
+    alignItems: "center",
+    backgroundColor: "white",
     borderRadius: 15,
-    paddingHorizontal: 16,         // more generous padding
+    paddingHorizontal: 16,
     paddingVertical: 12,
     minWidth: 90,
-    
   },
+
   dayText: {
-    color: '#333',
-    fontSize: 14,
-    fontWeight: '500',
+    color: "black",
+    fontSize: 15,
+    fontWeight: "500",
   },
 
   dateText: {
-    color: '#000',
+    color: "black",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 4,
   },
-})
+});

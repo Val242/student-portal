@@ -1,56 +1,20 @@
-import { Ionicons } from "@expo/vector-icons"
-import { Tabs } from 'expo-router'
-import React from 'react'
+import { MyTabBar } from "@/components/TabBar";
+import { Tabs } from 'expo-router';
+import React from 'react';
+import { StyleSheet } from "react-native";
+
 
 const TabsLayout = () => {
-    // const {colors} = useTheme();
   return (
-    <Tabs 
-      screenOptions={{
-        headerShown: false
-      }}>
-
-        <Tabs.Screen //Relates to an overall screen and how it is displayed
-            name='schedule'//here is the name of the component or file who's content is going to be displayed in the screen
-            options={{
-                tabBarIcon: () => (
-                    <Ionicons name='calendar-outline' size={30}/>      
-                )
-            }}
-        
-        />
-
- <Tabs.Screen //Relates to an overall screen and how it is displayed
-            name='tasks'//here is the name of the component or file who's content is going to be displayed in the screen
-            options={{
-                tabBarIcon: () => (
-                    <Ionicons name='document-outline' size={30}/>      
-                )
-            }}
-        
-        />
-
-         <Tabs.Screen //Relates to an overall screen and how it is displayed
-            name='profile'//here is the name of the component or file who's content is going to be displayed in the screen
-            options={{
-                tabBarIcon: () => (
-                    <Ionicons name='person-outline' size={30}/>      
-                )
-            }}
-        
-        />
-         {/* <Tabs.Screen //Relates to an overall screen and how it is displayed
-            name='profile'//here is the name of the component or file who's content is going to be displayed in the screen
-            options={{
-                tabBarIcon: () => (
-                    <Ionicons name='calendar'/>      
-                )
-            }}
-        
-        /> */}
-
-     
-
+    <Tabs  
+     screenOptions={{
+    headerShown: false
+  }}
+tabBar={prop => <MyTabBar {...prop}  />}>
+            <Tabs.Screen name="widgets" />
+            <Tabs.Screen name="schedule" />
+            <Tabs.Screen name="tasks" />
+            <Tabs.Screen name="profile" />
 
     </Tabs>
 
@@ -59,3 +23,9 @@ const TabsLayout = () => {
 }
 
 export default TabsLayout
+
+const styles = StyleSheet.create({
+    tabsScreen: {
+        color: "white"
+    }
+})
