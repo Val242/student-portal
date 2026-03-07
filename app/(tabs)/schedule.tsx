@@ -9,40 +9,50 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Schedule = () => {
 
   const [isActiveTime, setIsActiveTime] = useState(false);
+  const [isDayActive, setDayActive] = useState(false)
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string| null>('')
 
 const handleDatePress = (date: number) => {
-  setSelectedDate(date);
+  console.log(`clicked date is ${date}`)
+  if (selectedDate === date) {
+    setSelectedDate(null); // deactivate
+  } else {
+    setSelectedDate(date); // activate new date
+  }
+  console.log(selectedDate===date)
+  console.log(`Current selected date: ${selectedDate}`)
 };
 
   // console.log(isActive)
 
   const schedules = [
     {
-      day: "Monday",
+      day: "Mon",
       date: 18
     },
     {
-      day: "Tuesday",
+      day: "Tue",
       date: 19
     },
     {
-      day: "Wednesday",
+      day: "Wed",
       date: 20
     },
     {
-      day: "Thurday",
+      day: "Thu",
       date: 21
     },
     {
-      day: "Friday",
+      day: "Fri",
       date: 22
     }
   ]
 
   const timeTable = [
     {
+      id: 1,
       startTime: '8:30 AM',
       endTime: '10:00 AM',
       title: 'Social Studies',
@@ -50,6 +60,7 @@ const handleDatePress = (date: number) => {
      lecturer: 'Mrs. Goodman' ,
     },
         {
+      id: 2,    
       startTime: '10:30 AM',
       endTime: '12:00 AM',
       title: 'English Literature' ,
@@ -57,6 +68,7 @@ const handleDatePress = (date: number) => {
      lecturer: 'Mrs. Melton',
     },
         {
+      id: 3,
       startTime: '1:00 PM',
       endTime: '2:30 PM',
       title: 'Arts and Culture' ,
@@ -64,21 +76,24 @@ const handleDatePress = (date: number) => {
      lecturer: 'Mrs. Fabiola',
     },
         {
-       startTime: '3:00 PM',
+      id: 4,
+      startTime: '3:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '5:00 PM',
+      id: 5,
+      startTime: '5:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '4:00 PM',
+      id: 6,  
+      startTime: '4:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
@@ -91,9 +106,12 @@ const handleDatePress = (date: number) => {
 // const handleDatePress = (date: number) => {
 //   setSelectedDate(date);
 // };
-const handleSchedulePress = (startTime: string) => {
-  setSelectedTime(startTime);
-  setIsActiveTime((prev)=> !prev)
+const handleSchedulePress = (id: number) => {
+ if (selectedScheduleId === id) {
+    setSelectedScheduleId(null); // deactivate
+  } else {
+    setSelectedScheduleId(id); // activate new date
+  }
   
 };
 
@@ -103,7 +121,7 @@ const handleSchedulePress = (startTime: string) => {
       <View style = {scheduleStyles.topNav}>
           <View style = {scheduleStyles.InnerTopNav}>
           <Text style ={scheduleStyles.title}>My Schedule </Text>
-           <FontAwesome5 name='calendar' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
+           <FontAwesome5 name='calendar' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
           </View>
     <ScrollView
         horizontal
@@ -137,9 +155,9 @@ const handleSchedulePress = (startTime: string) => {
             title={item.title}
             location={item.location}
             lecturer={item.lecturer}
-            onPress={()=>handleSchedulePress(item.startTime)}
-            isActive = {isActiveTime &&  selectedTime === item.startTime}
-            key={index} 
+            isActive = {selectedScheduleId === item.id}
+            onPress={()=>handleSchedulePress(item.id)}
+            key={item.id} 
           />
         ))
       }

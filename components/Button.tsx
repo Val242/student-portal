@@ -71,7 +71,7 @@ export function ProfileButton({section}:ProfileButton){
                 textAlign: 'center',
                 backgroundColor: '#eceef0',
                 padding: 10,
-                borderRadius:20,
+                borderRadius: 30,
                 fontSize: 20,
                 fontWeight: "500",     
                 }

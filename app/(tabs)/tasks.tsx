@@ -138,8 +138,8 @@ const tasks = () => {
           <View style = {tasksStyles.topNav}>
           <Text style = {tasksStyles.title}>My tasks</Text>
               <View style = {tasksStyles.InnerTopNav}>
-                <Ionicons name='search' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-                <Ionicons name='notifications-outline' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
+                <Ionicons name='search' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
+                <Ionicons name='notifications-outline' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
               </View>
           </View>
            

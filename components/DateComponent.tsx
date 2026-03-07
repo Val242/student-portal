@@ -17,8 +17,8 @@ export default function DateComponent({ date, day , isActive,onPress}: DateProps
         isActive && { backgroundColor: "#a28ef9" }
       ]}
     >
-      <Text style={styles.dayText}>{day}</Text>
-      <Text style={styles.dateText}>{date}</Text>
+      <Text style={[styles.dayText, isActive &&{color: "white"}]}>{day}</Text>
+      <Text  style={[styles.dateText, isActive &&{color: "white"}]}>{date}</Text>
     </Pressable>
   );
 }
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
   },
 
   dayText: {
-    color: "#333",
-    fontSize: 14,
+    color: "black",
+    fontSize: 15,
     fontWeight: "500",
   },
 
   dateText: {
-    color: "#000",
+    color: "black",
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 4,

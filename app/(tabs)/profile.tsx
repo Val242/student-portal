@@ -5,7 +5,6 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { Image, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import student from '../../assets/images/Rajeev.png'
 
 const profile = () => {
 
@@ -53,15 +52,15 @@ const profile = () => {
   return (
   
    
-      <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9"}}>
+      <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9",}}>
       <SafeAreaView style = {profileStyles.page}>
         
       <View style = {profileStyles.page}>
          <View style = {profileStyles.topNav}>
            <Text style = {profileStyles.title}>My profile</Text>
             <View style = {profileStyles.InnerTopNav}>
-                <MaterialCommunityIcons name="lead-pencil" size={30} color="black" style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-               <Ionicons name='notifications-outline' size={30} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
+                <MaterialCommunityIcons name="lead-pencil" size={25} color="black" style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
+               <Ionicons name='notifications-outline' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
               </View>
           </View>
     </View>
@@ -69,8 +68,7 @@ const profile = () => {
           <View style= {profileStyles.profileLayout}>
 
               <View style={{display:'flex', flexDirection: 'row', paddingTop: 10 }}>
-                  <Image
-                  source={student}
+                  <Image source={require("../../assets/images/Rajeev.png")}
                   style={{ width: 120, height: 120, resizeMode: "contain", borderRadius:25 }}
                   />
                   <View style={{display:'flex' , marginLeft:10, justifyContent:"center"}}>
