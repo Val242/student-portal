@@ -26,7 +26,39 @@ const tasksStyles = createTasksStyles();
 
 const tasks = () => {
 
+  const[selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
+
+const handleStatusPress = (todoType: Variant) => {
+
+        console.log(todoType)
+        console.log(selectedStatus)
+        // deactivate if same button clicked
+        if (selectedStatus === todoType) {
+          setSelectedStatus('');
+          setTasks(initialTodo);
+          return;
+        }
+
+        setSelectedStatus(todoType);
+
+        if (todoType === "allTask") {
+          setTasks(initialTodo);
+          return;
+        }
+
+        let status = "";
+
+        if (todoType === "toDO") status = "To do";
+        if (todoType === "inProgress") status = "In progress";
+        if (todoType === "done") status = "Done";
+
+        const filtered = initialTodo.filter(todo => todo.status === status);
+
+        setTasks(filtered);
+};
+
+      
 
       const initialTodo: StatusState[] = [
           {
@@ -110,23 +142,23 @@ const tasks = () => {
         ]
 
 
-       const fetchFilteredTodos = (todoType: Variant) => {
+//        const fetchFilteredTodos = (todoType: Variant) => {
 
-            if (todoType === "allTask") {
-              setTasks(initialTodo)
-              return
-            }
+//             if (todoType === "allTask") {
+//               setTasks(initialTodo)
+//               return
+//             }
 
-            let status = ""
+//             let status = ""
 
-            if (todoType === "toDO") status = "To do"
-            if (todoType === "inProgress") status = "In progress"
-            if (todoType === "done") status = "Done"
+//             if (todoType === "toDO") status = "To do"
+//             if (todoType === "inProgress") status = "In progress"
+//             if (todoType === "done") status = "Done"
 
-            const filtered = initialTodo.filter(todo => todo.status === status)
+//             const filtered = initialTodo.filter(todo => todo.status === status)
 
-            setTasks(filtered)
-}
+//             setTasks(filtered)
+// }
      
 
   
@@ -151,7 +183,8 @@ const tasks = () => {
                         title={stateButton.title}
                         textStyle={stateButton.textStyle}
                         status={stateButton.status}
-                        onPress={()=> stateButton.status && fetchFilteredTodos(stateButton.status)}
+                        isActive = {selectedStatus === stateButton.status}
+                        onPress={()=> stateButton.status && handleStatusPress(stateButton.status)}
                         key={index}
                       
                       />
@@ -173,7 +206,7 @@ const tasks = () => {
 
           {
             tasks.map((todo, filerType)=>(
-                filterType  &&(
+
                  
                 <Todos 
                   status={todo.statusState}
@@ -183,7 +216,7 @@ const tasks = () => {
                   comments={todo.comments}
                   key={filerType}
                 />
-                )
+ 
             ))}
 
          

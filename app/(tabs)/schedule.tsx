@@ -8,11 +8,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Schedule = () => {
 
-  const [isActiveTime, setIsActiveTime] = useState(false);
-  const [isDayActive, setDayActive] = useState(false)
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string| null>('')
+
 
 const handleDatePress = (date: number) => {
   console.log(`clicked date is ${date}`)
@@ -29,22 +27,27 @@ const handleDatePress = (date: number) => {
 
   const schedules = [
     {
+      id: 1,
       day: "Mon",
       date: 18
     },
     {
+      id: 2,
       day: "Tue",
       date: 19
     },
     {
+      id: 3,
       day: "Wed",
       date: 20
     },
     {
+      id: 4,
       day: "Thu",
       date: 21
     },
     {
+      id: 5,
       day: "Fri",
       date: 22
     }

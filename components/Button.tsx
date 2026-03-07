@@ -9,7 +9,7 @@ type ButtonProps = {
   style?: ViewStyle;
   textStyle: TextStyle;
   status: Variant;
-//   isActive: boolean;
+  isActive: boolean;
 };
 
 type ProfileButton = {
@@ -24,32 +24,33 @@ export default function CustomButton({
   style,
   textStyle,
   status,
+  isActive
 }: ButtonProps) {
 
     const variantStyles: Record<Variant, ViewStyle>={
         allTask: {
-            backgroundColor: 'white' ,
+            backgroundColor: isActive? 'black':'white' ,
             borderRadius: 25,
             paddingHorizontal: 10,
             paddingVertical: 10,
            
         },
         toDO: {
-            backgroundColor: 'white' ,
+            backgroundColor: isActive? 'black':'white' ,
             borderRadius: 25,
             paddingHorizontal: 10,
             paddingVertical: 10,
            
         },
         inProgress: {
-            backgroundColor: 'white' ,
+            backgroundColor: isActive? 'black':'white' ,
             borderRadius: 25,
             paddingHorizontal: 10,
             paddingVertical: 10,
            
         },
         done: {
-            backgroundColor: 'white' ,
+            backgroundColor: isActive? 'black':'white' ,
             borderRadius: 25,
             paddingHorizontal: 10,
             paddingVertical: 10,
@@ -60,7 +61,7 @@ export default function CustomButton({
    
 
   return <Pressable style = {variantStyles[status]} onPress={onPress}  >
-   <Text>{title}</Text> 
+   <Text style ={{color: isActive? "white": "black"}}>{title}</Text> 
     </Pressable>;
 }
 
