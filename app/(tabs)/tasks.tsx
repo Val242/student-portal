@@ -111,12 +111,6 @@ const handleStatusPress = (todoType: Variant) => {
           },
       ]
       const [tasks, setTasks] = useState(initialTodo)
-      const [filterType, setFilterType] = useState("all");
-
-      
-        // const handlePress  = ()=>{
-        //   setIsActiveTask(prev => !prev)
-        //    }
 
         const stateButtons: ButtonState[] = [
           {
@@ -140,27 +134,6 @@ const handleStatusPress = (todoType: Variant) => {
             status: "done"
           }
         ]
-
-
-//        const fetchFilteredTodos = (todoType: Variant) => {
-
-//             if (todoType === "allTask") {
-//               setTasks(initialTodo)
-//               return
-//             }
-
-//             let status = ""
-
-//             if (todoType === "toDO") status = "To do"
-//             if (todoType === "inProgress") status = "In progress"
-//             if (todoType === "done") status = "Done"
-
-//             const filtered = initialTodo.filter(todo => todo.status === status)
-
-//             setTasks(filtered)
-// }
-     
-
   
   return (
    

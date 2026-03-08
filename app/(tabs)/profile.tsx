@@ -1,9 +1,12 @@
 import { createProfilesStyles } from '@/assets/styles/profiles.styles'
-import Activities from '@/components/Activities'
 import { ProfileButton } from '@/components/Button'
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import About from '@/components/profile/About'
+import Activities from '@/components/profile/Activities'
+import ProfilesTop from '@/components/profile/ProfilesTop'
+import StudentCard from '@/components/StudentCard'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const profile = () => {
@@ -54,49 +57,22 @@ const profile = () => {
    
       <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9",}}>
       <SafeAreaView style = {profileStyles.page}>
-        
-      <View style = {profileStyles.page}>
-         <View style = {profileStyles.topNav}>
-           <Text style = {profileStyles.title}>My profile</Text>
-            <View style = {profileStyles.InnerTopNav}>
-                <MaterialCommunityIcons name="lead-pencil" size={25} color="black" style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-               <Ionicons name='notifications-outline' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-              </View>
-          </View>
-    </View>
+             <ProfilesTop/>
   </SafeAreaView>
           <View style= {profileStyles.profileLayout}>
-
-              <View style={{display:'flex', flexDirection: 'row', paddingTop: 10 }}>
-                  <Image source={require("../../assets/images/Rajeev.png")}
-                  style={{ width: 120, height: 120, resizeMode: "contain", borderRadius:25 }}
-                  />
-                  <View style={{display:'flex' , marginLeft:10, justifyContent:"center"}}>
-                    <Text style={{fontSize: 25,fontWeight: "700",letterSpacing: -1}}>Kate Malone</Text>
-                    <Text>Class 9A</Text>
+        
+                  <StudentCard/>
+                  <View style= {profileStyles.filters}>
+                      <ProfileButton section={'Achievements'}  />
+                      <ProfileButton section={'Notes'}  />
                   </View>
-              </View>
-
-              <View style= {profileStyles.filters}>
-                <ProfileButton section={'Achievements'}  />
-                <ProfileButton section={'Notes'}  />
-              </View>
-
-                <View style={{marginVertical:15}}>
-                      <Text style = {{fontSize: 20,fontWeight: "600",letterSpacing: -1,}}>
-                        About
-                        </Text>
-                      <Text style = {{fontSize: 15}}>
-                        I am interested in math and biology. I like to solve
-                        complex problems and participate in school olympiads
-                      </Text>
-                </View>
-
-       <View style={{marginVertical:20}}>
-          <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
-          {
-            activities.map((activity, index)=>(
-                <Activities
+                <About/>
+             
+         <View style={{marginVertical:20}}>
+              <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
+                {
+                  activities.map((activity, index)=>(
+                 <Activities
                   title={activity.title}
                   date={activity.date}
                   description={activity.description}

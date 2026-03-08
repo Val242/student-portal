@@ -21,6 +21,10 @@ const handleDatePress = (date: number) => {
   }
   console.log(selectedDate===date)
   console.log(`Current selected date: ${selectedDate}`)
+
+  let id = null;
+
+  
 };
 
   // console.log(isActive)
