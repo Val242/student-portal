@@ -82,7 +82,7 @@ const profile = () => {
                     } 
                 </View>
                 
-                    </View>
+            </View>
 </ScrollView>   
   )
 }
