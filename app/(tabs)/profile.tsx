@@ -53,12 +53,11 @@ const profile = () => {
   const profileStyles = createProfilesStyles()
 
   return (
-  
-   
+
       <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9",}}>
-      <SafeAreaView style = {profileStyles.page}>
+          <SafeAreaView style = {profileStyles.page}>
              <ProfilesTop/>
-  </SafeAreaView>
+          </SafeAreaView>
           <View style= {profileStyles.profileLayout}>
         
                   <StudentCard/>
@@ -66,27 +65,25 @@ const profile = () => {
                       <ProfileButton section={'Achievements'}  />
                       <ProfileButton section={'Notes'}  />
                   </View>
-                <About/>
+                  <About/>
              
-         <View style={{marginVertical:20}}>
-              <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
-                {
-                  activities.map((activity, index)=>(
-                 <Activities
-                  title={activity.title}
-                  date={activity.date}
-                  description={activity.description}
-                  icon={activity.icon}
-                  key={index}
-                />
-            ))
-          } 
-       </View>
-      
-          </View>
-</ScrollView>
-     
-    
+                  <View style={{marginVertical:20}}>
+                        <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
+                          {
+                            activities.map((activity, index)=>(
+                          <Activities
+                            title={activity.title}
+                            date={activity.date}
+                            description={activity.description}
+                            icon={activity.icon}
+                            key={index}
+                          />
+                      ))
+                    } 
+                </View>
+                
+                    </View>
+</ScrollView>   
   )
 }
 
