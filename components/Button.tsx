@@ -2,11 +2,14 @@ import { createTasksStyles } from "@/assets/styles/tasks.styles";
 import React from "react";
 import { Pressable, Text, TextStyle, ViewStyle } from "react-native";
 
+export type Variant =  "allTask" | "toDO" | "inProgress" | "done";
 type ButtonProps = {
   title: string;
-  onPress?: () => void;
+  onPress: () => void;
   style?: ViewStyle;
-  textStyle: TextStyle
+  textStyle: TextStyle;
+  status: Variant;
+  isActive: boolean;
 };
 
 type ProfileButton = {
@@ -19,9 +22,46 @@ export default function CustomButton({
   title,
   onPress,
   style,
-  textStyle,}: ButtonProps) {
-  return <Pressable  >
-   <Text>{title}</Text> 
+  textStyle,
+  status,
+  isActive
+}: ButtonProps) {
+
+    const variantStyles: Record<Variant, ViewStyle>={
+        allTask: {
+            backgroundColor: isActive? 'black':'white' ,
+            borderRadius: 25,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+           
+        },
+        toDO: {
+            backgroundColor: isActive? 'black':'white' ,
+            borderRadius: 25,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+           
+        },
+        inProgress: {
+            backgroundColor: isActive? 'black':'white' ,
+            borderRadius: 25,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+           
+        },
+        done: {
+            backgroundColor: isActive? 'black':'white' ,
+            borderRadius: 25,
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+           
+        }
+    }
+
+   
+
+  return <Pressable style = {variantStyles[status]} onPress={onPress}  >
+   <Text style ={{color: isActive? "white": "black"}}>{title}</Text> 
     </Pressable>;
 }
 
@@ -30,13 +70,13 @@ export function ProfileButton({section}:ProfileButton){
         <Text style={
             {
                 textAlign: 'center',
-                backgroundColor: '#eaedf0',
+                backgroundColor: '#eceef0',
                 padding: 10,
-                borderRadius:20,
+                borderRadius: 30,
                 fontSize: 20,
-                fontWeight: "bold",
-                
+                fontWeight: "500",     
                 }
                 }> {section}</Text>
     </Pressable>
 }
+

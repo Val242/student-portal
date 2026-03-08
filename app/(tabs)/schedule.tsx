@@ -1,47 +1,65 @@
 import { createScheduleStyles } from '@/assets/styles/schedules.styles'
-import DateComponent from '@/components/DateComponent'
-import ScheduleComponent from '@/components/Schedule'
-import { Ionicons } from '@expo/vector-icons'
+import DateComponent from '@/components/schedule/DateComponent'
+import ScheduleComponent from '@/components/schedule/Schedule'
+import { FontAwesome5 } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Schedule = () => {
 
-  const [isActive, setIsActive] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedScheduleId, setSelectedScheduleId] = useState<number | null>(null);
 
-  const handlePress  = ()=>{
-    setIsActive(prev =>!prev)
-    console.log(isActive)
-  } 
 
-  console.log(isActive)
+const handleDatePress = (date: number) => {
+  console.log(`clicked date is ${date}`)
+  if (selectedDate === date) {
+    setSelectedDate(null); // deactivate
+  } else {
+    setSelectedDate(date); // activate new date
+  }
+  console.log(selectedDate===date)
+  console.log(`Current selected date: ${selectedDate}`)
+
+  let id = null;
+
+  
+};
+
+  // console.log(isActive)
 
   const schedules = [
     {
-      day: "Monday",
+      id: 1,
+      day: "Mon",
       date: 18
     },
     {
-      day: "Tuesday",
+      id: 2,
+      day: "Tue",
       date: 19
     },
     {
-      day: "Wednesday",
+      id: 3,
+      day: "Wed",
       date: 20
     },
     {
-      day: "Thurday",
+      id: 4,
+      day: "Thu",
       date: 21
     },
     {
-      day: "Friday",
+      id: 5,
+      day: "Fri",
       date: 22
     }
   ]
 
   const timeTable = [
     {
+      id: 1,
       startTime: '8:30 AM',
       endTime: '10:00 AM',
       title: 'Social Studies',
@@ -49,6 +67,7 @@ const Schedule = () => {
      lecturer: 'Mrs. Goodman' ,
     },
         {
+      id: 2,    
       startTime: '10:30 AM',
       endTime: '12:00 AM',
       title: 'English Literature' ,
@@ -56,6 +75,7 @@ const Schedule = () => {
      lecturer: 'Mrs. Melton',
     },
         {
+      id: 3,
       startTime: '1:00 PM',
       endTime: '2:30 PM',
       title: 'Arts and Culture' ,
@@ -63,21 +83,24 @@ const Schedule = () => {
      lecturer: 'Mrs. Fabiola',
     },
         {
-       startTime: '3:00 PM',
+      id: 4,
+      startTime: '3:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '3:00 PM',
+      id: 5,
+      startTime: '5:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
      lecturer: 'Mrs Melton',
     },
        {
-       startTime: '3:00 PM',
+      id: 6,  
+      startTime: '4:00 PM',
       endTime: '4:30 PM',
       title: 'English Literature' ,
       location: '82, Room 158',
@@ -87,13 +110,25 @@ const Schedule = () => {
 
 
   const scheduleStyles = createScheduleStyles()
+// const handleDatePress = (date: number) => {
+//   setSelectedDate(date);
+// };
+const handleSchedulePress = (id: number) => {
+ if (selectedScheduleId === id) {
+    setSelectedScheduleId(null); // deactivate
+  } else {
+    setSelectedScheduleId(id); // activate new date
+  }
+  
+};
+
   return (
     <SafeAreaView style= {scheduleStyles.container}>
       <ScrollView  showsVerticalScrollIndicator={false}>
       <View style = {scheduleStyles.topNav}>
           <View style = {scheduleStyles.InnerTopNav}>
-          <Text style ={scheduleStyles.title}>Schedule </Text>
-          <Ionicons name='calendar-outline' size={30}/>  
+          <Text style ={scheduleStyles.title}>My Schedule </Text>
+           <FontAwesome5 name='calendar' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>  
           </View>
     <ScrollView
         horizontal
@@ -110,6 +145,8 @@ const Schedule = () => {
               <DateComponent 
               day={schedule.day} 
               date={schedule.date}
+              isActive={selectedDate === schedule.date}
+              onPress={() => handleDatePress(schedule.date)}
               key={index}
               />
             ))
@@ -125,8 +162,9 @@ const Schedule = () => {
             title={item.title}
             location={item.location}
             lecturer={item.lecturer}
-            onPress={handlePress}
-            key={index}
+            isActive = {selectedScheduleId === item.id}
+            onPress={()=>handleSchedulePress(item.id)}
+            key={item.id} 
           />
         ))
       }

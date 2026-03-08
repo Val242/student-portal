@@ -7,16 +7,19 @@ type ActivitiesProp={
     title: string;
     date: string;
     description: string
+    icon: React.ReactNode
 }
 
-export default function Activities({title,date,description}: ActivitiesProp) {
+export default function Activities({title,date,description,icon}: ActivitiesProp) {
   return (
     <View style={styles.container}>
+        <View style={{display:'flex', flexDirection: "row", gap: 15}}>
+        {icon}
         <View>
            <Text style={styles.title}>{title} <Text style={styles.date}>{date}</Text> </Text>
              <Text>{description}</Text>
-      </View>
-      <MaterialCommunityIcons  name="dots-vertical" size={24} />
+      </View></View>
+      <MaterialCommunityIcons  name="dots-vertical" size={30} />
     </View>
   )
 }
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent:'space-between',
-        gap: 6,
+        gap: 5,
         backgroundColor: 'white',
         borderRadius: 20,
         paddingVertical: 15,
@@ -34,17 +37,15 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         paddingBottom: 15,
         borderColor: '#9aa6b2',
-        position: 'relative',
         inset: 1,
         borderWidth: 1
     },
     title: {
-        fontSize: 20,
         fontWeight: "700",
     },
     date:{
         color: '#9aa6b2',
-        fontSize: 15,
+       
         fontWeight: "400"
     },
     comments:{
