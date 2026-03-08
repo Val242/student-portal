@@ -1,6 +1,7 @@
 import { createTasksStyles } from '@/assets/styles/tasks.styles';
 import Button from '@/components/Button';
-import Todos from '@/components/Todos';
+import TasksTop from '@/components/task/TasksTop';
+import Todos from '@/components/task/Todos';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { ScrollView, Text, TextStyle, View } from 'react-native';
@@ -140,15 +141,8 @@ const handleStatusPress = (todoType: Variant) => {
     <SafeAreaView style ={tasksStyles.page} >
        <ScrollView  showsVerticalScrollIndicator={false}>
       <View style ={tasksStyles.page}>
-          <View style = {tasksStyles.topNav}>
-          <Text style = {tasksStyles.title}>My tasks</Text>
-              <View style = {tasksStyles.InnerTopNav}>
-                <Ionicons name='search' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-                <Ionicons name='notifications-outline' size={25} style={{backgroundColor:"white", borderRadius: 20, padding:8}}/>
-              </View>
-          </View>
+          <TasksTop/>
            
-      
         <View style = {tasksStyles.buttonRow}>
                   {
                     stateButtons.map((stateButton, index)=>(

@@ -6,7 +6,7 @@ export default function StudentCard() {
      const profileStyles = createProfilesStyles()
   return (
               <View style={{display:'flex', flexDirection: 'row', paddingTop: 10 }}>
-                  <Image source={require("../assets/images/Rajeev.png")}
+                  <Image source={require("../../assets/images/Rajeev.png")}
                   style={{ width: 120, height: 120, resizeMode: "contain", borderRadius:25 }}
                   />
                   <View style={{display:'flex' , marginLeft:10, justifyContent:"center"}}>

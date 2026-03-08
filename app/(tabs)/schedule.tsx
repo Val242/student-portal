@@ -1,6 +1,6 @@
 import { createScheduleStyles } from '@/assets/styles/schedules.styles'
-import DateComponent from '@/components/DateComponent'
-import ScheduleComponent from '@/components/Schedule'
+import DateComponent from '@/components/schedule/DateComponent'
+import ScheduleComponent from '@/components/schedule/Schedule'
 import { FontAwesome5 } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'

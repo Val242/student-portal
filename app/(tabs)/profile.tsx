@@ -3,7 +3,7 @@ import { ProfileButton } from '@/components/Button'
 import About from '@/components/profile/About'
 import Activities from '@/components/profile/Activities'
 import ProfilesTop from '@/components/profile/ProfilesTop'
-import StudentCard from '@/components/StudentCard'
+import StudentCard from '@/components/profile/StudentCard'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { ScrollView, Text, View } from 'react-native'
@@ -55,16 +55,20 @@ const profile = () => {
   return (
 
       <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9",}}>
+          
           <SafeAreaView style = {profileStyles.page}>
              <ProfilesTop/>
           </SafeAreaView>
+
           <View style= {profileStyles.profileLayout}>
-        
+
                   <StudentCard/>
+                 
                   <View style= {profileStyles.filters}>
                       <ProfileButton section={'Achievements'}  />
                       <ProfileButton section={'Notes'}  />
                   </View>
+
                   <About/>
              
                   <View style={{marginVertical:20}}>
@@ -83,6 +87,7 @@ const profile = () => {
                 </View>
                 
             </View>
+
 </ScrollView>   
   )
 }
