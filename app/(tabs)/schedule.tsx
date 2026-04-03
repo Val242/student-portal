@@ -174,3 +174,9 @@ const handleSchedulePress = (id: number) => {
 }
 
 export default Schedule
+
+
+
+// const date = new Date(scheduleItem.startTime);
+// const formatted = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+// // formatted → "8:30 AM"
