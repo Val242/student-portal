@@ -4,8 +4,9 @@ export const createAuthStyles = () => {
 
   const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 10,
-        backgroundColor: '#eceef0'
+        // backgroundColor: '#eceef0',
+        margin:15
+
     },
     safeArea: {
       flex: 1,
@@ -31,6 +32,7 @@ export const createAuthStyles = () => {
       fontSize: 30,
       fontWeight: "700",
       letterSpacing: -1,
+      marginVertical: 12
     },
     scrollView: {
       flex: 1,
@@ -78,11 +80,24 @@ export const createAuthStyles = () => {
         flexDirection: 'row' ,
         gap: 10
     },
-    profileLayout:{
-        backgroundColor: "white",
-        borderRadius: 25,
-        paddingHorizontal: 10,
-        
+    input: {
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor:'#efedf7',
+      borderColor: '#efedf7'
+    },
+    cta:{
+      height: 50,
+      margin: 12,
+      color: 'white',
+      borderWidth: 1,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor:'#a28ef9',
+      borderColor: '#a28ef9'  
     }
 
   });
