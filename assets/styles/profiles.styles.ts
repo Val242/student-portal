@@ -53,7 +53,7 @@ export const createProfilesStyles = () => {
     },
     page: {
         paddingHorizontal: 10,
-        backgroundColor: '#a28ef9',
+        backgroundColor: '#efedf7',
         // borderBottomRightRadius: 25,
         // borderBottomLeftRadius: 25,
         // overflow: 'hidden'
