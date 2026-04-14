@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthProps{
     authState?: {token: string | null; authenticated: boolean | null}
@@ -9,7 +9,7 @@ interface AuthProps{
 }
 
 const TOKEN_KEY = 'my-jwt';
-export const BASE_API = 'http://10.72.121.72:3000/auth'
+export const BASE_API = 'http://10.69.102.72:3000/auth'
 const AuthContext = createContext<AuthProps>({})
 
 export const useAuth = ()=>{
@@ -26,19 +26,41 @@ export const AuthProvider = ({children}: any)=>{
         authenticated:null
     })
 
+    useEffect(()=>{
+        const loadToken = async ()=>{
+            const token = await SecureStore.getItemAsync(TOKEN_KEY);
+            console.log("stored: ", token)
+            
+            if(token){
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                setAuthState({
+                    token: token,
+                    authenticated:true
+                })
+            }
+        }
+        loadToken();
+    }, [])
+
     const register = async (name: string, email: string , bio: string , classId:number  , password: string)=>{
         try {
+          
             return await axios.post(`${BASE_API}/register`, {name,email,bio,classId,password})
+          
         } catch (error) {
             return {error: true, msg: (error as any).response.data.message}
         }
     }
     const login = async (email: string , password: string)=>{
+        console.log('hellp')
         try {
             const result = await axios.post(`${BASE_API}/login`, {email,password})
+            console.log("logging .....")
 
             setAuthState({
-                token: result.data.token,
+                token: result.data.accessToken,
+                
                 authenticated:true
             })
             console.log(result)
@@ -52,7 +74,8 @@ export const AuthProvider = ({children}: any)=>{
     
     const value ={
         onRegister: register,
-        OnLogin: login
+        onLogin: login,
+        authState
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
