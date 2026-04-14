@@ -1,5 +1,6 @@
 import { createAuthStyles } from '@/assets/styles/auth.styles'
 import { ROUTES } from '@/constants/navigation'
+import { useAuth } from '@/context/AuthContext'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import React from 'react'
@@ -7,6 +8,7 @@ import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const login = () => {
+     const {onLogin} = useAuth()
       const [user, setUser] = React.useState({
         email: 'ebongvalentine70@gmail.com',
         password: '12345678',
@@ -20,10 +22,19 @@ const login = () => {
 };
       const authStyles = createAuthStyles()
       
-      const OnPressFunction = ()=>{
-        alert("Hello")
-      }
+      const OnPressFunction = async () => {
+        alert("yo")
+          // Basic validation
 
+          // Call your context register
+          const result = await onLogin?.(
+            user.email,
+            user.password
+          );
+
+          if (result?.error) {
+            alert(result.msg);
+          }}
   return (
     
     <SafeAreaView  style={authStyles.container}>

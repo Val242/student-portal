@@ -1,5 +1,6 @@
 import { createAuthStyles } from '@/assets/styles/auth.styles'
 import { ROUTES } from '@/constants/navigation'
+import { useAuth } from '@/context/AuthContext'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import React from 'react'
@@ -7,12 +8,13 @@ import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const signup = () => {
+      const { onRegister } = useAuth();
       const [user, setUser] = React.useState({
-        name: 'Ebong Valentine',
-        email: 'ebongvalentine70@gmail.com',
-        classId: '1A',
-        password: '12345678',
-        confirmPassword: '12345678',
+        name: '',
+        email: '',
+        classId: '',
+        password: '',
+        confirmPassword: '',
       });
 
       const handleChange = (field: string, value: string) => {
@@ -23,9 +25,33 @@ const signup = () => {
 };
       const authStyles = createAuthStyles()
       
-      const OnPressFunction = ()=>{
-        alert("Hello")
-      }
+      const OnPressFunction = async () => {
+        alert("yo")
+          // Basic validation
+          if (!user.name || !user.email || !user.password) {
+            alert("Please fill all fields");
+            return;
+          }
+
+          if (user.password !== user.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+          }
+
+          // Call your context register
+          const result = await onRegister?.(
+            user.name,
+            user.email,
+            "", // bio (you can add later)
+            Number(user.classId),
+            user.password
+          );
+
+          if (result?.error) {
+            alert(result.msg);
+          } else {
+            alert("Account created successfully ✅");
+          }}
 
   return (
     
@@ -39,6 +65,7 @@ const signup = () => {
           value={user.name}
           onChangeText={(text) => handleChange('name', text)}
           style={authStyles.input}
+          placeholder='user name'
         />
 
       <TextInput
@@ -47,12 +74,14 @@ const signup = () => {
         style={authStyles.input}
         keyboardType="email-address"
         autoCapitalize="none"
+        placeholder='user email'
       />
 
       <TextInput
         value={user.classId}
         onChangeText={(text) => handleChange('classId', text)}
         style={authStyles.input}
+        placeholder='user class'
       />
 
       <TextInput
@@ -60,6 +89,7 @@ const signup = () => {
         onChangeText={(text) => handleChange('password', text)}
         style={authStyles.input}
         secureTextEntry
+        placeholder='user password'
       />
 
       <TextInput
@@ -67,6 +97,7 @@ const signup = () => {
         onChangeText={(text) => handleChange('confirmPassword', text)}
         style={authStyles.input}
         secureTextEntry
+        placeholder='confirm user password'
       />
 
       <Pressable onPress={OnPressFunction} style={authStyles.cta}>
