@@ -26,22 +26,30 @@ export const AuthProvider = ({children}: any)=>{
         authenticated:null
     })
 
-    useEffect(()=>{
-        const loadToken = async ()=>{
-            const token = await SecureStore.getItemAsync(TOKEN_KEY);
-            console.log("stored: ", token)
-            
-            if(token){
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+useEffect(() => {
+  const loadToken = async () => {
+    const accessToken = await SecureStore.getItemAsync(TOKEN_KEY);
+    console.log("stored: ", accessToken);
+    
 
-                setAuthState({
-                    token: token,
-                    authenticated:true
-                })
-            }
-        }
-        loadToken();
-    }, [])
+    if (accessToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+      setAuthState({
+        token: accessToken,
+        authenticated: true,
+      });
+    } else {
+      setAuthState({
+        token: null,
+        authenticated: false,
+      });
+    }
+  };
+
+  console.log(`authenticated is ${authState.authenticated}`)
+  loadToken();
+}, [authState.authenticated]);
 
     const register = async (name: string, email: string , bio: string , classId:number  , password: string)=>{
         try {
@@ -51,26 +59,38 @@ export const AuthProvider = ({children}: any)=>{
         } catch (error) {
             return {error: true, msg: (error as any).response.data.message}
         }
-    }
-    const login = async (email: string , password: string)=>{
-        console.log('hellp')
-        try {
-            const result = await axios.post(`${BASE_API}/login`, {email,password})
-            console.log("logging .....")
+     }
+        const login = async (email: string, password: string) => {
+    console.log('hellp');
 
-            setAuthState({
-                token: result.data.accessToken,
-                
-                authenticated:true
-            })
-            console.log(result)
+    try {
+        const result = await axios.post(`${BASE_API}/login`, { email, password });
+        console.log("logging .....");
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${result.data.token}`
-            await SecureStore.setItemAsync(TOKEN_KEY, result.data.token)
-        } catch (error) {
-            return {error: true, msg: (error as any).response.data.message}
+        const accessToken = result.data.accessToken;
+
+        setAuthState({
+        token: accessToken,
+        authenticated: true,
+        });
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+        await SecureStore.setItemAsync(TOKEN_KEY, accessToken);
+        if(accessToken){
+      setAuthState({token:accessToken, authenticated: true })
         }
+        console.log(accessToken)
+
+        return result;
+
+    } catch (error) {
+        return {
+        error: true,
+        msg: (error as any)?.response?.data?.message || "Login failed",
+        };
     }
+    };
     
     const value ={
         onRegister: register,

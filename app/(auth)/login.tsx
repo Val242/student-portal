@@ -10,8 +10,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const login = () => {
      const {onLogin} = useAuth()
       const [user, setUser] = React.useState({
-        email: 'ebongvalentine70@gmail.com',
-        password: '12345678',
+        email: 'ebongvalentine1@gmail.com',
+        password: '1234',
       });
 
       const handleChange = (field: string, value: string) => {
@@ -23,7 +23,7 @@ const login = () => {
       const authStyles = createAuthStyles()
       
       const OnPressFunction = async () => {
-        alert("yo")
+    
           // Basic validation
 
           // Call your context register
