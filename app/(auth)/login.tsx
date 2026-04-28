@@ -10,8 +10,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const login = () => {
      const {onLogin} = useAuth()
       const [user, setUser] = React.useState({
-        email: 'ebongvalentine1@gmail.com',
-        password: '1234',
+        email: 'ebongvalentine70@gmail.com',
+        password: '123344',
       });
 
       const handleChange = (field: string, value: string) => {

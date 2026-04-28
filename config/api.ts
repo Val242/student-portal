@@ -1,8 +1,7 @@
 // src/api/api.ts   or   utils/api.ts
 
 import axios from 'axios';
-
-const API_BASE_URL = 'http://10.69.102.72:3000';
+export const API_BASE_URL = 'http://10.220.141.72:3000';
 
 // Create axios instance
 const api = axios.create({
@@ -12,19 +11,30 @@ const api = axios.create({
   },
 });
 
+
+let cachedToken: string | null = null;
+
+export const setToken = (token: string | null) => {
+  cachedToken = token;
+};
+
+export const getToken = () => cachedToken;
+
+
+
 // Add token automatically to every request
+// 🔥 interceptor uses MEMORY token (NOT SecureStore)
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken'); // or wherever you store your token
-  
+  const token = getToken?.(); // or use cachedToken directly
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  
-  return config;
-  
-}
 
-);
+  return config;
+});
+
+
 // Add this in the same api.ts file
 
 export const userTaskApi = {
@@ -37,6 +47,12 @@ export const userTaskApi = {
   // You can add more methods later
   // createTask: async (data) => { ... }
 };
-
+export const getUserProfile = {
+  getMyProfile: async()=>{
+    const response = await api.get('/users/me')
+    console.log(response.data)
+    return response.data
+  }
+}
 
 export default api;

@@ -4,12 +4,26 @@ import About from '@/components/profile/About'
 import Activities from '@/components/profile/Activities'
 import ProfilesTop from '@/components/profile/ProfilesTop'
 import StudentCard from '@/components/profile/StudentCard'
+import { useAuth } from '@/context/AuthContext'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const profile = () => {
+    const { onLogout,authState } = useAuth()
+     const onLogoutPress = async () => {
+      try {
+  console.log("Logout button pressed");
+
+  const result = await onLogout?.();
+  console.log("Logout result:", result);
+    console.log(authState)
+      } catch (error) {
+        console.log("Logout error:", error);
+        alert("Something went wrong during logout");
+      }
+    };
 
   const activities = [
     {
@@ -87,6 +101,9 @@ const profile = () => {
                 </View>
                 
             </View>
+                  <Pressable onPress={onLogoutPress} >
+            <Text style={{color: 'white', textAlign: 'center', fontWeight: "700"}}>Logout</Text>
+      </Pressable>
 
 </ScrollView>   
   )
