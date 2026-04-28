@@ -1,45 +1,83 @@
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+import { API_BASE_URL, setToken } from "@/config/api";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
 import { createContext, useContext, useEffect, useState } from "react";
 
-interface AuthProps{
-    authState?: {token: string | null; authenticated: boolean | null}
-    onRegister?:(name: string, email: string , bio: string , classId:number  , password: string)=> Promise<any>
-    onLogin?: (email: string, password: string)=> Promise<any>
+interface AuthProps {
+  authState?: {
+    token: string | null;
+    authenticated: boolean | null; // null = loading
+  };
+  onRegister?: (
+    name: string,
+    email: string,
+    bio: string,
+    classId: number,
+    password: string
+  ) => Promise<any>;
+  onLogin?: (email: string, password: string) => Promise<any>;
+  onLogout?: () => Promise<void>;
 }
 
-const TOKEN_KEY = 'my-jwt';
-export const BASE_API = 'http://10.69.102.72:3000/auth'
-const AuthContext = createContext<AuthProps>({})
+const TOKEN_KEY = "my-jwt";
 
-export const useAuth = ()=>{
-    return useContext(AuthContext)
-}
+const AuthContext = createContext<AuthProps>({});
 
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
-export const AuthProvider = ({children}: any)=>{
-    const [authState, setAuthState] = useState<{
-        token:string|null;
-        authenticated: boolean | null;
-    }>({
-        token: null,
-        authenticated:null
-    })
+export const AuthProvider = ({ children }: any) => {
+  const [authState, setAuthState] = useState<{
+    token: string | null;
+    authenticated: boolean | null;
+  }>({
+    token: null,
+    authenticated: null, // null = loading state
+  });
 
-useEffect(() => {
+  // =========================
+  // LOAD TOKEN ON APP START
+  // =========================
+ useEffect(() => {
+  let isMounted = true;
+
   const loadToken = async () => {
-    const accessToken = await SecureStore.getItemAsync(TOKEN_KEY);
-    console.log("stored: ", accessToken);
-    
+    try {
+      const token = await SecureStore.getItemAsync(TOKEN_KEY);
 
-    if (accessToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      console.log("stored:", token);
 
-      setAuthState({
-        token: accessToken,
-        authenticated: true,
-      });
-    } else {
+      if (!isMounted) return;
+
+      if (token) {
+        // 🔥 1. update memory (IMPORTANT)
+        setToken(token);
+
+        // 🔥 2. update axios (optional fallback)
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${token}`;
+
+        setAuthState({
+          token,
+          authenticated: true,
+        });
+      } else {
+        setToken(null);
+
+        setAuthState({
+          token: null,
+          authenticated: false,
+        });
+      }
+    } catch (error) {
+      console.log("Token load error:", error);
+
+      if (!isMounted) return;
+
+      setToken(null);
+
       setAuthState({
         token: null,
         authenticated: false,
@@ -47,56 +85,107 @@ useEffect(() => {
     }
   };
 
-  console.log(`authenticated is ${authState.authenticated}`)
   loadToken();
-}, [authState.authenticated]);
 
-    const register = async (name: string, email: string , bio: string , classId:number  , password: string)=>{
-        try {
-          
-            return await axios.post(`${BASE_API}/register`, {name,email,bio,classId,password})
-          
-        } catch (error) {
-            return {error: true, msg: (error as any).response.data.message}
-        }
-     }
-        const login = async (email: string, password: string) => {
-    console.log('hellp');
+  return () => {
+    isMounted = false;
+  };
+}, []);
 
+  // =========================
+  // REGISTER
+  // =========================
+  const register = async (
+    name: string,
+    email: string,
+    bio: string,
+    classId: number,
+    password: string
+  ) => {
     try {
-        const result = await axios.post(`${BASE_API}/login`, { email, password });
-        console.log("logging .....");
+      return await axios.post(`${API_BASE_URL}/register`, {
+        name,
+        email,
+        bio,
+        classId,
+        password,
+      });
+    } catch (error) {
+      return {
+        error: true,
+        msg: (error as any).response?.data?.message,
+      };
+    }
+  };
 
-        const accessToken = result.data.accessToken;
+  // =========================
+  // LOGIN
+  // =========================
+  const login = async (email: string, password: string) => {
+    try {
+      const result = await axios.post(
+        `${API_BASE_URL}/auth/login`,
+        { email, password }
+      );
 
-        setAuthState({
+      const accessToken = result.data.accessToken;
+
+      await SecureStore.setItemAsync(TOKEN_KEY, accessToken);
+
+        setToken(accessToken);
+
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${accessToken}`;
+
+      setAuthState({
         token: accessToken,
         authenticated: true,
-        });
+      });
 
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-        await SecureStore.setItemAsync(TOKEN_KEY, accessToken);
-        if(accessToken){
-      setAuthState({token:accessToken, authenticated: true })
-        }
-        console.log(accessToken)
-
-        return result;
-
+      return result;
     } catch (error) {
-        return {
+      return {
         error: true,
         msg: (error as any)?.response?.data?.message || "Login failed",
-        };
+      };
     }
-    };
-    
-    const value ={
-        onRegister: register,
-        onLogin: login,
-        authState
-    }
+  };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
+  // =========================
+  // LOGOUT
+  // =========================
+  const logout = async () => {
+    try {
+      await SecureStore.deleteItemAsync(TOKEN_KEY);
+        setToken(null);
+
+      delete axios.defaults.headers.common["Authorization"];
+
+      setAuthState({
+        token: null,
+        authenticated: false,
+      });
+
+      console.log("Logout completed");
+    } catch (error) {
+      console.log("Logout error:", error);
+    }
+  };
+
+  // =========================
+  // CONTEXT VALUE
+  // =========================
+  const value = {
+    onRegister: register,
+    onLogin: login,
+    onLogout: logout,
+    authState,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

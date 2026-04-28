@@ -1,26 +1,12 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+import { useAuth } from "@/context/AuthContext";
+import { Redirect, Slot } from "expo-router";
 
 export default function AuthLayout() {
- 
-  return (
-   
-      <>
-      <Stack
-          screenOptions={{
-              headerShown: false,
-              gestureEnabled: false,
-          }}
-      >
-  
-          <Stack.Screen name="login" />
-          <Stack.Screen name="signup" />
-          <Stack.Screen name="forgot-password" />
-       
-      </Stack>
-      <StatusBar style="auto" />
-      </>
+  const { authState } = useAuth();
 
-  );
+  if (authState?.authenticated) {
+    return <Redirect href="/(tabs)/schedule" />;
+  }
+
+  return <Slot />;
 }
