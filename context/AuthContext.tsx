@@ -36,14 +36,15 @@ export const AuthProvider = ({ children }: any) => {
     authenticated: null, // null = loading state
   });
 
-  // =========================
-  // LOAD TOKEN ON APP START
-  // =========================
+
  useEffect(() => {
+  //This use effect does the following when the app loads
+
   let isMounted = true;
 
   const loadToken = async () => {
     try {
+        //1. Reads the token from storage
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
 
       console.log("stored:", token);
@@ -51,10 +52,10 @@ export const AuthProvider = ({ children }: any) => {
       if (!isMounted) return;
 
       if (token) {
-        // 🔥 1. update memory (IMPORTANT)
+        // 2. Put it back into memory
         setToken(token);
 
-        // 🔥 2. update axios (optional fallback)
+        // 3. update axios (optional fallback)
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${token}`;
@@ -90,11 +91,11 @@ export const AuthProvider = ({ children }: any) => {
   return () => {
     isMounted = false;
   };
+
+  
 }, []);
 
-  // =========================
-  // REGISTER
-  // =========================
+
   const register = async (
     name: string,
     email: string,
@@ -118,9 +119,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  // =========================
-  // LOGIN
-  // =========================
+
   const login = async (email: string, password: string) => {
     try {
       const result = await axios.post(
@@ -152,9 +151,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  // =========================
-  // LOGOUT
-  // =========================
+
   const logout = async () => {
     try {
       await SecureStore.deleteItemAsync(TOKEN_KEY);
@@ -173,9 +170,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  // =========================
-  // CONTEXT VALUE
-  // =========================
+
   const value = {
     onRegister: register,
     onLogin: login,
