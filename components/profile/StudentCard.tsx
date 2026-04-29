@@ -21,7 +21,7 @@ export default function StudentCard() {
 
     try {
       const data = await getUserProfile.getMyProfile()
-      console.log(data)
+      
 
       setName(data.name)
       setClassName(data.classId)

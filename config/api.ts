@@ -23,7 +23,7 @@ export const getToken = () => cachedToken;
 
 
 // Add token automatically to every request
-// 🔥 interceptor uses MEMORY token (NOT SecureStore)
+//  interceptor uses MEMORY token (NOT SecureStore)
 api.interceptors.request.use((config) => {
   const token = getToken?.(); // or use cachedToken directly
 
@@ -52,7 +52,14 @@ export const getUserProfile = {
     const response = await api.get('/users/me')
     console.log(response.data)
     return response.data
-  }
+  },
+  getMyActivities: async()=>{
+    const response = await api.get('/activity')
+    console.log(response.data)
+    return response.data
+  },
 }
+
+
 
 export default api;

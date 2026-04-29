@@ -4,14 +4,43 @@ import About from '@/components/profile/About'
 import Activities from '@/components/profile/Activities'
 import ProfilesTop from '@/components/profile/ProfilesTop'
 import StudentCard from '@/components/profile/StudentCard'
+import { getUserProfile } from '@/config/api'
 import { useAuth } from '@/context/AuthContext'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const profile = () => {
     const { onLogout,authState } = useAuth()
+    const [activitiesRes, setActivities] = useState([]);
+    
+      const [error, setError] = useState<string | null>(null)
+      const [loading, setLoading] = useState(false)
+    
+    
+     
+    
+    const loadActivities = async () => {
+      setLoading(true);
+
+      try {
+        const data = await getUserProfile.getMyActivities();
+        console.log(data);
+
+        setActivities(data); //  store whole array
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load activities. Please check your internet connectivity");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+      useEffect(() => {
+        loadActivities()
+      }, [])
+    
      const onLogoutPress = async () => {
       try {
   console.log("Logout button pressed");
@@ -99,6 +128,7 @@ const profile = () => {
                       ))
                     } 
                 </View>
+
                 
             </View>
                   <Pressable onPress={onLogoutPress} >
