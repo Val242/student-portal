@@ -7,22 +7,52 @@ type ActivitiesProp={
     title: string;
     date: string;
     description: string
-    icon: React.ReactNode
+    icon: IconType
 }
+export type IconType = "maths" | "arts"
 
 export default function Activities({title,date,description,icon}: ActivitiesProp) {
-  return (
+  
+  const iconMap = {
+    maths: {
+        name:"ruler",
+        bg: "#a28ef9"
+    },
+    arts: {
+        name:"television",
+        bg: "#ffd89d"
+    },
+  } as const;
+
+    const formatDate = (dateString: string) => {
+    return new Intl.DateTimeFormat("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(new Date(dateString));
+  };
+  const currentIcon = iconMap[icon] 
+    return (
     <View style={styles.container}>
         <View style={{display:'flex', flexDirection: "row", gap: 15}}>
-        {icon}
+      <MaterialCommunityIcons
+  name={currentIcon.name}
+  size={24}
+  style={{
+    backgroundColor: currentIcon.bg,
+    borderRadius: 20,
+    padding: 10,
+  }}
+/>
         <View>
-           <Text style={styles.title}>{title} <Text style={styles.date}>{date}</Text> </Text>
+           <Text style={styles.title}>{title} <Text style={styles.date}>{formatDate(date)}</Text> </Text>
              <Text>{description}</Text>
       </View></View>
       <MaterialCommunityIcons  name="dots-vertical" size={30} />
     </View>
   )
 }
+
 const styles = StyleSheet.create({
     container: {
         display: 'flex',

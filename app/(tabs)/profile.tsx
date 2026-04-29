@@ -6,18 +6,22 @@ import ProfilesTop from '@/components/profile/ProfilesTop'
 import StudentCard from '@/components/profile/StudentCard'
 import { getUserProfile } from '@/config/api'
 import { useAuth } from '@/context/AuthContext'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Activity } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const profile = () => {
     const { onLogout,authState } = useAuth()
-    const [activitiesRes, setActivities] = useState([]);
-    
+    const [activitiesRes, setActivitiesRes] = useState<Activity[]>([]);
+    const [modalVisible, setModalVisible] = useState(false);
       const [error, setError] = useState<string | null>(null)
       const [loading, setLoading] = useState(false)
     
+
+      const iconMap ={
+        maths: {name:"ruler",backgroundColor:"#a4f5a6"}
+      }
     
      
     
@@ -28,7 +32,7 @@ const profile = () => {
         const data = await getUserProfile.getMyActivities();
         console.log(data);
 
-        setActivities(data); //  store whole array
+        setActivitiesRes(data); //  store whole array
       } catch (err) {
         console.error(err);
         setError("Failed to load activities. Please check your internet connectivity");
@@ -54,50 +58,20 @@ const profile = () => {
       }
     };
 
-  const activities = [
-    {
-        title: 'Math Olympiad ',
-        date: 'May 30, 2025',
-        description: 'Conducted for classes 8-9',
-        icon: <MaterialCommunityIcons name="ruler" size={24} style={{backgroundColor:"#a4f5a6", borderRadius: 20, padding:10}} />
-    },
-      {
-        title: 'Art Exhibition ',
-        date: 'June 23, 2025',
-        description: 'Exhibition of creative works',
-      icon: <MaterialCommunityIcons name="television" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
-    },
-      {
-        title: 'Science and technology',
-        date: 'May 30, 2025',
-        description: 'Conducted for classes 9-10',
-        icon: <MaterialCommunityIcons name="nature" size={24} style={{backgroundColor:"#ffd89d", borderRadius: 20, padding:10}}/>
-    },
-       {
-        title: 'Law and Political Science',
-        date: 'May 31, 2025',
-        description: 'Conducted for classes 9-10',
-        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#a28ef9", borderRadius: 20, padding:10}} />
-    },
-      {
-        title: 'Law and Political Science',
-        date: 'May 31, 2025',
-        description: 'Conducted for classes 9-10',
-         icon: <MaterialCommunityIcons name="ruler" size={24} style={{backgroundColor:"#a4f5a6", borderRadius: 20, padding:10}} />
-    },
-      {
-        title: 'Law and Political Science',
-        date: 'May 31, 2025',
-        description: 'Conducted for classes 9-10',
-        icon: <MaterialCommunityIcons name="school" size={24} style={{backgroundColor:"#ffd89d", borderRadius: 20, padding:10}} />
-    },
-  ]
+  if (loading) {
+    return (
+<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  <Text>Loading profile...</Text>
+</View>
+
+    )
+  }
 
   const profileStyles = createProfilesStyles()
 
   return (
 
-      <ScrollView  showsVerticalScrollIndicator={false} style={{backgroundColor:"#a28ef9",}}>
+      <ScrollView  showsVerticalScrollIndicator={false} >
           
           <SafeAreaView style = {profileStyles.page}>
              <ProfilesTop/>
@@ -117,13 +91,13 @@ const profile = () => {
                   <View style={{marginVertical:20}}>
                         <Text style = {{  fontSize: 20,fontWeight: "600",letterSpacing: -1, marginBottom:10}}> Upcoming activities</Text>
                           {
-                            activities.map((activity, index)=>(
+                            activitiesRes.map((activity, index)=>(
                           <Activities
                             title={activity.title}
                             date={activity.date}
                             description={activity.description}
                             icon={activity.icon}
-                            key={index}
+                            key={activity.id}
                           />
                       ))
                     } 
