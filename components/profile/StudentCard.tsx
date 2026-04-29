@@ -24,7 +24,7 @@ export default function StudentCard() {
       
 
       setName(data.name)
-      setClassName(data.classId)
+      setClassName(data.class.name)
       setProfilePicture(data.profilePicUrl)
 
 
