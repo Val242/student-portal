@@ -62,6 +62,11 @@ export const getUserProfile = {
     const response = await api.patch('/users',data)
     return response.data
     
+  },
+  getMyAchievments: async()=>{
+    const response = await api.get('/achievement')
+    console.log(response.data)
+    return response.data
   }
 }
 

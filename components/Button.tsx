@@ -14,6 +14,7 @@ type ButtonProps = {
 
 type ProfileButton = {
     section: string;
+    onPress: () => void;
 }
 
 const tasksStyles = createTasksStyles();
@@ -65,8 +66,8 @@ export default function CustomButton({
     </Pressable>;
 }
 
-export function ProfileButton({section}:ProfileButton){
-    return <Pressable style={{ width: '50%' }}  >
+export function ProfileButton({section, onPress}:ProfileButton){
+    return <Pressable style={{ width: '50%' }} onPress={onPress} >
         <Text style={
             {
                 textAlign: 'center',
