@@ -8,3 +8,11 @@ export type Activity = {
   icon: IconType;
   classId: number;
 };
+
+export type Achievement = {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  userId: number;
+};

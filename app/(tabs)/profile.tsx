@@ -5,8 +5,10 @@ import Activities from '@/components/profile/Activities'
 import ProfilesTop from '@/components/profile/ProfilesTop'
 import StudentCard from '@/components/profile/StudentCard'
 import { getUserProfile } from '@/config/api'
+import { ROUTES } from '@/constants/navigation'
 import { useAuth } from '@/context/AuthContext'
 import { Activity } from '@/types'
+import { router } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -82,8 +84,8 @@ const profile = () => {
                   <StudentCard/>
                  
                   <View style= {profileStyles.filters}>
-                      <ProfileButton section={'Achievements'}  />
-                      <ProfileButton section={'Notes'}  />
+                      <ProfileButton section={'Achievements'}  onPress={() => router.replace(ROUTES.ACHIEVEMENTS)} />
+                      <ProfileButton section={'Notes'}  onPress={() => router.replace(ROUTES.NOTES)}/>
                   </View>
 
                   <About/>

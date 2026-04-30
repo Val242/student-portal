@@ -10,6 +10,10 @@ export const ROUTES = {
   PROFILE: "/(tabs)/profile",
   WIDGETS: "/(tabs)/widgets",
   TASKS: "/(tabs)/tasks",
+
+  //Screens
+  ACHIEVEMENTS: "/screens/Achievements/Achievements",
+  NOTES: "/screens/Notes/Notes"
 //   LYRICS_GENERATOR: "/(tabs)/createPost/lyricsGenerator",
 //   POST: "/(tabs)/createPost/post",
 //   UPLOAD_SONG: "/(tabs)/createPost/uploadSong",
