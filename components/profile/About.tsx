@@ -41,8 +41,10 @@ export default function About() {
                         About
                  </Text>
                  <Text style = {{fontSize: 15}}>
-                  {bio || "No Class"}
+                  {bio || "Tap to add bio"}
                 </Text>
+
+                
            </View>
   )
 }

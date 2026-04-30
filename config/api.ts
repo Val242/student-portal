@@ -50,14 +50,19 @@ export const userTaskApi = {
 export const getUserProfile = {
   getMyProfile: async()=>{
     const response = await api.get('/users/me')
-    console.log(response.data)
+    // console.log(response.data)
     return response.data
   },
   getMyActivities: async()=>{
     const response = await api.get('/activity')
-    console.log(response.data)
+    // console.log(response.data)
     return response.data
   },
+  updateUserProfile: async(data: { name: string; bio: string; email: string })=>{
+    const response = await api.patch('/users',data)
+    return response.data
+    
+  }
 }
 
 

@@ -1,6 +1,7 @@
 import { createProfilesStyles } from '@/assets/styles/profiles.styles'
+import { getUserProfile } from '@/config/api'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Pressable, Text, TextInput, View } from 'react-native'
 
 const ProfilesTop = () => {
@@ -8,6 +9,46 @@ const ProfilesTop = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const[bio, setBio] = useState("")
+
+    const loadProfile = async () => {
+    
+  
+      try {
+        const data = await getUserProfile.getMyProfile()
+        
+  
+        setName(data.name)
+        setEmail(data.email)
+        setBio(data.bio)
+  
+  
+      } catch (err: any) {
+        console.error(err)
+        
+      }
+    }
+        const updateProfile = async () => {
+    
+  
+      try {
+        const data = await getUserProfile.updateUserProfile({name: name, bio:bio, email:email})
+
+
+        console.log(data)
+
+        loadProfile()
+  
+      } catch (err: any) {
+        console.error(err)
+        
+      }
+    }
+  
+  
+    useEffect(() => {
+      loadProfile()
+    }, [])
+  
   
   const profileStyles = createProfilesStyles()
   return (
@@ -93,12 +134,19 @@ const ProfilesTop = () => {
               <Text style={{ color: "red" }}>Cancel</Text>
             </Pressable>
 
-            <Pressable onPress={() => {
-              console.log(name, email);
+          <Pressable
+            onPress={async () => {
+              console.log(name, email, bio);
+
+              await updateProfile(); //  actually runs the function
+
               setModalVisible(false);
-            }}>
-              <Text style={{ color: "green", fontWeight: "bold" }}>Save</Text>
-            </Pressable>
+            }}
+          >
+            <Text style={{ color: "green", fontWeight: "bold" }}>
+              Save
+            </Text>
+          </Pressable>
 
           </View>
 

@@ -42,7 +42,7 @@ export default function StudentCard() {
 
   const profileStyles = createProfilesStyles()
 
-  // 🔴 Loading UI
+  //Loading UI
   if (loading) {
     return (
       <View style={{ paddingTop: 20 }}>
@@ -51,7 +51,7 @@ export default function StudentCard() {
     )
   }
 
-  // 🔴 Error UI
+  //Error UI
   if (error) {
     return (
       <View style={{ paddingTop: 20 }}>
