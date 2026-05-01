@@ -1,36 +1,32 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-type AchievementProps = {
+type NotesProps = {
   title: string;
-  description: string;
+  content: string;
   date: string;
   // onPress: ()=>void
 };
 
-export default function AchievementCard2({
+export default function NotesCard({
   title,
-  description,
+  content,
   date,
   // onPress
-}: AchievementProps) {
+}: NotesProps) {
   return (
     <View style={styles.container}>
       <View>
       <Text style={styles.title}>{title}</Text>
 
-<Text style={styles.description} numberOfLines={2} >
-          {description}
+    <Text style={styles.content} >
+          {content}
         </Text>
 
       <Text style={styles.date}>
         {new Date(date).toLocaleString()}
       </Text>
       </View>
-   
- <MaterialCommunityIcons  name="dots-vertical" size={30}  />
-    
     </View>
   );
 }
@@ -57,7 +53,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-  description: {
+  content: {
     fontSize: 14,
     color: "#555",
     marginBottom: 8,
