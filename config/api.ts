@@ -74,7 +74,20 @@ export const getUserProfile = {
     });
 
     return response.data;
-  }
+  },
+    getMyNotes: async()=>{
+    const response = await api.get('/note')
+    console.log(response.data)
+    return response.data
+  },
+    searchNotes: async (title: string) => {
+    const response = await api.get('/note/search', {
+      params: { title },
+    });
+
+    return response.data;
+  },
+
 }
 
 

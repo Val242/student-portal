@@ -18,7 +18,7 @@ const SearchBar = ({value, onChangeText,placeholder}: SearchBarProps) => {
 {/* // In SearchBar.tsx */}
         <TextInput
         style={styles.input}
-        placeholder="Search for achivements ..."
+        placeholder={placeholder}
         placeholderTextColor="#a29797"
         value={value}                    // ← Add this
         onChangeText={onChangeText}      // ← Add this
