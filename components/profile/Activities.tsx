@@ -34,21 +34,28 @@ export default function Activities({title,date,description,icon}: ActivitiesProp
   const currentIcon = iconMap[icon] 
     return (
     <View style={styles.container}>
-        <View style={{display:'flex', flexDirection: "row", gap: 15}}>
-      <MaterialCommunityIcons
-  name={currentIcon.name}
-  size={24}
-  style={{
-    backgroundColor: currentIcon.bg,
-    borderRadius: 20,
-    padding: 10,
-  }}
-/>
+
+       <View style={{display:'flex', flexDirection: "row", gap: 15}}>
+      
+       <MaterialCommunityIcons
+        name={currentIcon.name}
+        size={24}
+        style={{
+          backgroundColor: currentIcon.bg,
+          borderRadius: 20,
+          padding: 10,
+        }}
+            />
+
         <View>
            <Text style={styles.title}>{title} <Text style={styles.date}>{formatDate(date)}</Text> </Text>
              <Text>{description}</Text>
-      </View></View>
+      </View>
+
+    </View>
+
       <MaterialCommunityIcons  name="dots-vertical" size={30} />
+
     </View>
   )
 }

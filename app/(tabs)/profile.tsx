@@ -108,7 +108,7 @@ const profile = () => {
                 
             </View>
                   <Pressable onPress={onLogoutPress} >
-            <Text style={{color: 'white', textAlign: 'center', fontWeight: "700"}}>Logout</Text>
+            <Text style={{color: 'red', textAlign: 'center', fontWeight: "700"}}>Logout</Text>
       </Pressable>
 
 </ScrollView>   
