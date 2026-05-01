@@ -45,7 +45,7 @@ const profile = () => {
     
       useEffect(() => {
         loadActivities()
-      }, [])
+      }, [authState?.token])
     
      const onLogoutPress = async () => {
       try {
