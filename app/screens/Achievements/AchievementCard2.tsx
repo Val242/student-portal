@@ -20,9 +20,9 @@ export default function AchievementCard2({
       <View>
       <Text style={styles.title}>{title}</Text>
 
-      <Text style={styles.description}>
-        {description}
-      </Text>
+<Text style={styles.description} numberOfLines={2} >
+          {description}
+        </Text>
 
       <Text style={styles.date}>
         {new Date(date).toLocaleString()}
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "white",
     padding: 15,
-    justifyContent: "space-around",
+   justifyContent: "space-between",
     borderRadius: 10,
     marginBottom: 10,
     borderBottomWidth: 1.5,

@@ -1,8 +1,10 @@
 import { getUserProfile } from '@/config/api'
+import { useAuth } from '@/context/AuthContext'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
 
 export default function About() {
+  const { authState } = useAuth()
          const [bio, setBio] = useState('')
          const [error, setError] = useState<string | null>(null)
          const [loading, setLoading] = useState(false)
@@ -24,7 +26,7 @@ export default function About() {
            }
              useEffect(() => {
                loadProfile()
-             }, [])
+             }, [authState?.token])
               if (loading) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

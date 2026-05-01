@@ -67,6 +67,13 @@ export const getUserProfile = {
     const response = await api.get('/achievement')
     console.log(response.data)
     return response.data
+  },
+  searchAchievements: async (title: string) => {
+    const response = await api.get('/achievement/search', {
+      params: { title },
+    });
+
+    return response.data;
   }
 }
 
