@@ -35,7 +35,9 @@ const Settings = () => {
                         }}
                         
                       />
-                      <Text>Edit</Text>
+                     <Text style={{ color: "#6C63FF", fontWeight: "600" }}>
+  Change Photo
+</Text>
             </View>
             <View style={{display:"flex", gap:10}}>
                     <View style={{display:"flex", flexDirection:"row", gap:15, alignItems:"center"}}>
