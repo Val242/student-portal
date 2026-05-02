@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants/navigation'
-import { Ionicons, Octicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, Pressable, Text, View } from 'react-native'
@@ -18,7 +18,7 @@ const Settings = () => {
       <Pressable onPress={() => router.replace(ROUTES.PROFILE)}><Ionicons name="chevron-back" size={24} color="black" /></Pressable>
       <Text style={{ fontSize: 25,fontWeight: "700",letterSpacing: -1, color: "black"}}>Profile Settings</Text>
       </View>
-      <View style={{paddingTop: 20}}>
+      <View style={{paddingTop: 20, display:"flex", gap:20, justifyContent:"center"}}>
             <View style={{display:"flex", alignItems:"center", gap:4}}>
                 {/**Image */}
                       <Image
@@ -38,22 +38,22 @@ const Settings = () => {
                       <Text>Edit</Text>
             </View>
             <View style={{display:"flex", gap:10}}>
-                    <View style={{display:"flex", flexDirection:"row", gap:4, alignItems:"center"}}>
-                         <Octicons name='person' size={25}/>
+                    <View style={{display:"flex", flexDirection:"row", gap:15, alignItems:"center"}}>
+                         <Ionicons name="person-outline" size={25} />
                                   <View>
                                      <Text >Name  </Text>
                                        <Text>{name|| "Ebong Valentine"}</Text>
                                 </View>
                     </View>
-                    <View style={{display:"flex", flexDirection:"row", gap:4, alignItems:"center"}}>
-                         <Octicons name='mail' size={25}/>
+                    <View style={{display:"flex", flexDirection:"row", gap:15, alignItems:"center"}}>
+                        <Ionicons name="mail-outline" size={25}  />
                                   <View>
                                      <Text >Email  </Text>
                                        <Text>{email||'ebongvalentine70@gmail.com'}</Text>
                                 </View>
                     </View>
-                    <View style={{display:"flex", flexDirection:"row", gap:4, alignItems:"center"}}>
-                         <Octicons name='info' size={25}/>
+                    <View style={{display:"flex", flexDirection:"row", gap:15, alignItems:"center"}}>
+                       <Ionicons name="information-circle-outline" size={25}  />
                                   <View>
                                      <Text >Bio  </Text>
                                        <Text>{bio||'Community Builder'}</Text>
