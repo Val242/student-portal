@@ -1,7 +1,9 @@
 import { createProfilesStyles } from '@/assets/styles/profiles.styles'
 import { getUserProfile } from '@/config/api'
+import { ROUTES } from '@/constants/navigation'
+import { router } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, Pressable, Text, View } from 'react-native'
 
 export default function StudentCard() {
   
@@ -63,6 +65,7 @@ export default function StudentCard() {
   return (
     <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 10 }}>
       
+      <Pressable onPress={() => router.replace(ROUTES.SETTINGS)} >
       <Image
         source={
           profilePicture
@@ -75,7 +78,9 @@ export default function StudentCard() {
           resizeMode: "cover",
           borderRadius: 25
         }}
+        
       />
+      </Pressable>
 
       <View style={{ display: 'flex', marginLeft: 10, justifyContent: "center" }}>
         <Text style={{ fontSize: 25, fontWeight: "700", letterSpacing: -1 }}>
