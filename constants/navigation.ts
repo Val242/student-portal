@@ -13,7 +13,8 @@ export const ROUTES = {
 
   //Screens
   ACHIEVEMENTS: "/screens/Achievements/Achievements",
-  NOTES: "/screens/Notes/Notes"
+  NOTES: "/screens/Notes/Notes",
+  SETTINGS: "/screens/Settings/Settings"
 //   LYRICS_GENERATOR: "/(tabs)/createPost/lyricsGenerator",
 //   POST: "/(tabs)/createPost/post",
 //   UPLOAD_SONG: "/(tabs)/createPost/uploadSong",

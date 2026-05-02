@@ -1,7 +1,8 @@
 // src/api/api.ts   or   utils/api.ts
 
 import axios from 'axios';
-export const API_BASE_URL = 'http://10.220.141.72:3000';
+export const API_BASE_URL = 'http://10.118.199.72:3000';
+
 
 // Create axios instance
 const api = axios.create({
