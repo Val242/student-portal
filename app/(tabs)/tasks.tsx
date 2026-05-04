@@ -2,197 +2,165 @@ import { createTasksStyles } from '@/assets/styles/tasks.styles';
 import Button from '@/components/Button';
 import TasksTop from '@/components/task/TasksTop';
 import Todos from '@/components/task/Todos';
+import { getUserProfile } from '@/config/api';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, TextStyle, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type Variant =  "allTask" | "toDO" | "inProgress" | "done";
-type StateVariant =   "toDO" | "inProgress" | "done";
+type Variant = "allTask" | "toDO" | "inProgress" | "done";
+type StateVariant = "toDO" | "inProgress" | "done";
+
 interface ButtonState {
   status: Variant;
   title: string;
   textStyle: TextStyle;
 }
-interface StatusState{
-  statusState:StateVariant;
+
+interface StatusState {
+  statusState: StateVariant;
   title: string;
   course: string;
   date: string;
   comments: number;
-  status: string;
 }
 
 const tasksStyles = createTasksStyles();
 
-const tasks = () => {
+const Tasks = () => {
+  const [selectedStatus, setSelectedStatus] = useState<Variant | null>(null);
 
-  const[selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  //  separate states
+  const [allTasks, setAllTasks] = useState<StatusState[]>([]);
+  const [tasks, setTasks] = useState<StatusState[]>([]);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-const handleStatusPress = (todoType: Variant) => {
+  //  Load tasks from backend
+  const loadTasks = async () => {
+    setLoading(true);
 
-        console.log(todoType)
-        console.log(selectedStatus)
-        // deactivate if same button clicked
-        if (selectedStatus === todoType) {
-          setSelectedStatus('');
-          setTasks(initialTodo);
-          return;
-        }
+    try {
+      const data = await getUserProfile.getUserTask();
 
-        setSelectedStatus(todoType);
+      // IMPORTANT: map backend → frontend
+      const mapped: StatusState[] = data.map((item: any) => ({
+        statusState: item.status, // "toDO" | "inProgress" | "done"
+        title: item.task.title,
+        course: item.task.subject.name,
+        date: item.task.date,
+        comments: 0, // adjust later if you have comments
+      }));
 
-        if (todoType === "allTask") {
-          setTasks(initialTodo);
-          return;
-        }
+      setAllTasks(mapped);
+      setTasks(mapped);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load tasks.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        let status = "";
+  useEffect(() => {
+    loadTasks();
+  }, []);
 
-        if (todoType === "toDO") status = "To do";
-        if (todoType === "inProgress") status = "In progress";
-        if (todoType === "done") status = "Done";
+  //  Filter logic (cleaned)
+  const handleStatusPress = (status: Variant) => {
+    if (selectedStatus === status) {
+      setSelectedStatus(null);
+      setTasks(allTasks);
+      return;
+    }
 
-        const filtered = initialTodo.filter(todo => todo.status === status);
+    setSelectedStatus(status);
 
-        setTasks(filtered);
-};
+    if (status === "allTask") {
+      setTasks(allTasks);
+      return;
+    }
 
-      
+    const filtered = allTasks.filter(
+      (task) => task.statusState === status
+    );
 
-      const initialTodo: StatusState[] = [
-          {
-              status: 'In progress',
-              title: 'Read poem & answer questions',
-              course: 'English Literature',
-              date: 'May 12, 2025',
-              comments: 12,
-              statusState: "inProgress"
-          },
-            {
-              status: 'In progress',
-              title: 'Read poem & answer questions',
-              course: 'English Literature',
-              date: 'May 12, 2025',
-              comments: 12,
-              statusState: "inProgress"
-          },
-          {
-              status: 'To do',
-              title: 'Create a comic strip with a story',
-              course: 'Social studies',
-              date: 'May 12, 2025',
-              comments: 2,
-              statusState: "toDO"
-          },
-          {
-              status: 'To do',
-              title: 'Prepare for the math test',
-              course: 'Mathematics',
-              date: 'May 12, 2025',
-              comments: 10,
-              statusState: "toDO"
-          },
-          {
-              status: 'Done',
-              title: 'Writing feedback systems exam',
-              course: 'Feedback Systems',
-              date: 'May 12, 2025',
-              comments: 10,
-              statusState:"done"
-          },
-          {
-              status: 'To do',
-              title: 'Writing feedback systems exam',
-              course: 'Feedback Systems',
-              date: 'May 12, 2025',
-              comments: 10,
-              statusState: "done"
-          },
-      ]
-      const [tasks, setTasks] = useState(initialTodo)
+    setTasks(filtered);
+  };
 
-        const stateButtons: ButtonState[] = [
-          {
-            title: "All Tasks",
-            textStyle: tasksStyles['individualButton'],
-            status: "allTask"
-          },
-           {
-            title: "To do",
-            textStyle: tasksStyles['individualButton'],
-            status: "toDO"
-          },
-           {
-            title: "In Progress",
-            textStyle: tasksStyles['individualButton'],
-            status: "inProgress"
-          },
-           {
-            title: "Done",
-            textStyle: tasksStyles['individualButton'],
-            status: "done"
-          }
-        ]
-  
+  const stateButtons: ButtonState[] = [
+    { title: "All Tasks", textStyle: tasksStyles.individualButton, status: "allTask" },
+    { title: "To do", textStyle: tasksStyles.individualButton, status: "toDO" },
+    { title: "In Progress", textStyle: tasksStyles.individualButton, status: "inProgress" },
+    { title: "Done", textStyle: tasksStyles.individualButton, status: "done" },
+  ];
+
   return (
-   
-    <SafeAreaView style ={tasksStyles.page} >
-       <ScrollView  showsVerticalScrollIndicator={false}>
-      <View style ={tasksStyles.page}>
-          <TasksTop/>
-           
-        <View style = {tasksStyles.buttonRow}>
-                  {
-                    stateButtons.map((stateButton, index)=>(
-                      <Button 
-                        title={stateButton.title}
-                        textStyle={stateButton.textStyle}
-                        status={stateButton.status}
-                        isActive = {selectedStatus === stateButton.status}
-                        onPress={()=> stateButton.status && handleStatusPress(stateButton.status)}
-                        key={index}
-                      
-                      />
-                    ))
-                  }
-          </View>
+    <SafeAreaView style={tasksStyles.page}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={tasksStyles.page}>
+          
+          <TasksTop />
 
-          <View style = {tasksStyles.filters}>
-              <View style = {tasksStyles.filter}>
-                <Ionicons name='funnel' size={20}/>
-                <Text>Filters</Text>
-              </View>
-              <View style = {tasksStyles.filter}>
-                <Ionicons name='filter' size={20}/>
-                <Text>Sort by</Text>
-              </View>
-          </View>
-
-
-          {
-            tasks.map((todo, filerType)=>(
-
-                 
-                <Todos 
-                  status={todo.statusState}
-                  title={todo.title}
-                  course={todo.course}
-                  date={todo.date}
-                  comments={todo.comments}
-                  key={filerType}
-                />
- 
+          
+          <View style={tasksStyles.buttonRow}>
+            {stateButtons.map((btn, index) => (
+              <Button
+                key={index}
+                title={btn.title}
+                textStyle={btn.textStyle}
+                status={btn.status}
+                isActive={selectedStatus === btn.status}
+                onPress={() => handleStatusPress(btn.status)}
+              />
             ))}
+          </View>
+
+          
+          <View style={tasksStyles.filters}>
+            <View style={tasksStyles.filter}>
+              <Ionicons name="funnel" size={20} />
+              <Text>Filters</Text>
+            </View>
+            <View style={tasksStyles.filter}>
+              <Ionicons name="filter" size={20} />
+              <Text>Sort by</Text>
+            </View>
+          </View>
+
+        
+          {loading && <Text style={{ textAlign: "center" }}>Loading...</Text>}
 
          
+          {error && (
+            <Text style={{ textAlign: "center", color: "red" }}>
+              {error}
+            </Text>
+          )}
 
-      </View>
+        
+          {!loading && tasks.length === 0 && (
+            <Text style={{ textAlign: "center", marginTop: 20 }}>
+              No tasks found
+            </Text>
+          )}
+
+          {tasks.map((todo, index) => (
+            <Todos
+              key={index}
+              status={todo.statusState}
+              title={todo.title}
+              course={todo.course}
+              date={todo.date}
+              comments={todo.comments}
+            />
+          ))}
+
+        </View>
       </ScrollView>
     </SafeAreaView>
-   
-  )
-}
+  );
+};
 
-export default tasks
+export default Tasks;
